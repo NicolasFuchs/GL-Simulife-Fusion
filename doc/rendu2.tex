@@ -1,0 +1,105 @@
+\documentclass[12pt]{article}
+\usepackage[hmargin=1.25in, vmargin=1.1in]{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{enumitem}% http://ctan.org/pkg/enumitem
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{upquote}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{pdflscape}
+\graphicspath{ {images/} }
+
+\newcommand{\helv}{\fontfamily{phv}\fontseries{b}\fontsize{9}{11}\selectfont}
+
+
+
+%--------------- Variables à modifier à chaque rendu ---------------
+\title{Rendu 3}
+\newcommand{\daterendu}{15/11/2017}
+%-------------------------------------------------------------------
+\setlist[itemize]{noitemsep, topsep=1pt}
+\makeatletter\let\Title\@title\makeatother
+
+% Décommenter pour commencer les chapitres à 0
+%\setcounter{section}{-1}
+
+
+%----------------------------------------------------------------------------------------
+% CODE DISPLAY
+%----------------------------------------------------------------------------------------
+
+\lstset{
+ language=Java,
+ basicstyle=\ttfamily,
+ keywordstyle=\color{purple},
+ stringstyle=\color{red},
+ commentstyle=\color{green},
+ morecomment=[s][\color{blue}]{/**}{*/},
+ tabsize=3,
+ showspaces=false,
+ %frame=single,
+ showstringspaces=false,
+ keywordstyle={[2]\color{red}\bf},
+ inputencoding=utf8,
+ breaklines=true,
+ extendedchars=true,
+ literate={à}{{\`a}}1 {ê}{{\^e}}1 {é}{{\'e}}1 {è}{{\'e}}1 {ô}{{\^o}}1 {î}{{\^i}}1 {ç}{{\c{c}}}1 {delta}{{\tiny$\Delta$}}1
+}
+
+
+
+\begin{document}
+
+\include{titlepage}
+\pagenumbering{Roman}
+
+\renewcommand{\headrulewidth}{1pt}
+\fancyhead[L]{\helv WaterWorld}
+\fancyhead[C]{\helv 2017-2018}
+\fancyhead[R]{\helv \Title }
+
+\renewcommand{\footrulewidth}{1pt}
+\fancyfoot[C]{\helv Table des matières \thepage{}}
+
+\setcounter{page}{1}
+
+\begin{center}
+\renewcommand{\contentsname}{Table des matières}
+\tableofcontents
+\end{center}
+
+\newpage
+ {\setlength{\baselineskip}{1.5\baselineskip}
+\fancyhf{}
+\renewcommand{\headrulewidth}{1pt}
+\fancyhead[L]{\helv Nom du Groupe}
+\fancyhead[C]{\helv 2016-2017}
+\fancyhead[R]{\helv \Title }
+
+\renewcommand{\footrulewidth}{1pt}
+\fancyfoot[L]{\helv GL2-Info, Automne 2017 - 2018}
+\fancyfoot[C]{}
+\fancyfoot[R]{\helv \textbf{Page \thepage{} sur \pageref{LastPage}}}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\clearpage\pagestyle{empty}
+\begin{landscape}
+	\section{Diagramme de classe}
+	\includegraphics[scale=0.28]{fusion.jpg}
+\end{landscape}
+\newpage
+\section{Diagramme de séquence}
+\includegraphics[scale=0.12]{img.jpg}
+
+
+\end{document}
