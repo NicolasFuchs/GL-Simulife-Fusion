@@ -2,7 +2,7 @@ package creature;
 
 import java.awt.*;
 
-public class Bishop extends Piece {
+public class Bishop extends Creature {
 
   public String id = "B";
 

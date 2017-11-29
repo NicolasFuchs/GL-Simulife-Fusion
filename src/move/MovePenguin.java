@@ -1,10 +1,10 @@
 package move;
 
-import ch.eiafr.gl.simulife.model.ICreature;
+import creature.Creature;
 
 public class MovePenguin extends Move {
 
-    public MovePenguin(ICreature c, int dx, int dy) {
-        super(c,dx,dy);
+    public MovePenguin(Creature[][] game, Creature c) {
+        super(game, c);
     }
 }

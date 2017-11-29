@@ -1,10 +1,9 @@
 package move;
 
-import ch.eiafr.gl.simulife.model.ICreature;
+import creature.Creature;
 
 public class MoveShark extends Move {
-
-    public MoveShark(ICreature c, int dx, int dy) {
-        super(c,dx,dy);
-    }
+    public MoveShark(Creature[][] game, Creature c) {
+      super(game, c);
+  }
 }

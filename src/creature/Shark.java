@@ -1,35 +1,35 @@
 package creature;
 
 import java.awt.Color;
+import java.awt.Point;
 
-import ch.eiafr.gl.simulife.model.ICreature;
+abstract class Shark extends Creature {
 
-abstract class Shark implements ICreature {
-    private int id;
-    public Color color = Color.RED;
-    int hunger=10;
-    public  boolean isHunger() {
-        return hunger==0;
-    }
+  private int  id;
+  public Color color  = Color.RED;
+  int          hunger = 10;
 
-   
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
+  public boolean isHunger() {
+    return hunger == 0;
+  }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    
-    
-    
-    
+  public Shark(Point position) {
+    super(position);
+  }
+
+  /**
+   * @return the id
+   */
+  public int getId() {
+    return id;
+  }
+
+  /**
+   * @param id
+   *          the id to set
+   */
+  public void setId(int id) {
+    this.id = id;
+  }
 
 }

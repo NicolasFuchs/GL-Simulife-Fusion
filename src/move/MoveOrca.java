@@ -1,10 +1,10 @@
 package move;
 
-import ch.eiafr.gl.simulife.model.ICreature;
+import creature.Creature;
 
 public class MoveOrca extends Move {
 
-    public MoveOrca(ICreature c, int dx, int dy) {
-        super(c,dx,dy);
-    }
+    public MoveOrca(Creature[][] game, Creature c) {
+      super(game, c);
+  }
 }

@@ -1,45 +1,53 @@
 package creature;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.util.Random;
 
 import ch.eiafr.gl.simulife.model.ICreature;
 
-public class Orca implements ICreature {
+public class Orca extends Creature {
 
-	private static Orca instance = null;
+  private static Orca   instance  = null;
 
-	boolean firstMove = true;
-	private static Random rd;
-	private int row;
-	private int col;
-	public String icon = "orca.gif";
-	public String id = "O";
-	public Color color = Color.GREEN;
+  boolean               firstMove = true;
+  private static Random rd;
+  private int           row;
+  private int           col;
+  public String         icon      = "orca.gif";
+  public String         id        = "O";
+  public Color          color     = Color.GREEN;
 
-	public void setPosition(int row,int col) {
-		this.row=row;
-		this.col=col;
-	}
-	public int[] calcMove(ICreature[][] game) {
-		int[] move = new int[2];
+  
+  public Orca(Point position) {
+    super(position);
+    // TODO Auto-generated constructor stub
+  }
+  
+  public void setPosition(int row, int col) {
+    this.row = row;
+    this.col = col;
+  }
 
-		do {
-			row = rd.nextInt(game.length);
-			col = rd.nextInt(game.length);
-		} while (game[row][col] != null);
+  public int[] calcMove(ICreature[][] game) {
+    int[] move = new int[2];
 
-		move[0] = row;
-		move[1] = col;
-		return move;
-	}
+    do {
+      row = rd.nextInt(game.length);
+      col = rd.nextInt(game.length);
+    } while (game[row][col] != null);
 
-	public static Orca getInstance() {
-		if (instance == null) {
-			instance = new Orca();
-			rd = new Random();
-		}
-		return instance;
-	}
+    move[0] = row;
+    move[1] = col;
+    return move;
+  }
+
+  public static Orca getInstance(Point p) {
+    if (instance == null) {
+      instance = new Orca(p);
+      rd = new Random();
+    }
+    return instance;
+  }
 
 }

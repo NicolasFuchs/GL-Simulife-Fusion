@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class PieceFactory {
 
-    public Piece createPiece(Piece.PieceType type, boolean isBlack, Point p){
+    public Creature createPiece(Creature.CreatureType type, boolean isBlack, Point p){
         switch (type){
             case BISHOP:
                 return new Bishop(isBlack, p);

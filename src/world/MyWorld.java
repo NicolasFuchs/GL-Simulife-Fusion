@@ -1,7 +1,9 @@
 package world;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.time.chrono.IsoChronology;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -10,27 +12,44 @@ import javax.swing.ImageIcon;
 import ch.eiafr.gl.simulife.model.AWorld;
 import ch.eiafr.gl.simulife.model.ICreature;
 import creature.*;
+import creature.Creature.CreatureType;
+import move.*;
 
 public class MyWorld extends AWorld {
 
-  private int             nbCols = 6;
-  private int             nbRows = 6;
-  private AbstractCreator liveCreator;
-  private AbstractCreator deadCreator;
-  private boolean         isChessMode;
+  private int                      nbCols      = 6;
+  private int                      nbRows      = 6;
+  private static final int         NumberOfIce = 10;
 
-  private ICreature[][]   game;
-  private Random          rd;
+  private boolean                  isChessMode;
+  private Creature[][]             game;
+  private boolean                  gameOver    = false;
 
-  private PieceFactory    pieceFactory;
-  private MoveInvoker     invoker;
+  private Random                   rd;
+  private LinkedList<Creature>     list;
+  private static Orca              orca;
+  private static WhiteShark[]      whiteSharks;
+  private static HammerheadShark[] hammerheadSharks;
+  private static Penguin[]         penguins;
+  private static ArrayList<Ice>    iceList;
+  private static boolean           game_not_finished;
+  private static int               loop_id;
+
+  private PieceFactory             pieceFactory;
+  private MoveInvoker              invoker;
+  private AbstractCreator          liveCreator;
+  private AbstractCreator          deadCreator;
 
   public MyWorld(int nbCols, int nbRows, boolean isChessMode) {
     rd = new Random();
+    list = new LinkedList<>();
+    pieceFactory = new PieceFactory();
+    invoker = new MoveInvoker();
+
     this.nbCols = nbCols;
     this.nbRows = nbRows;
     this.isChessMode = isChessMode;
-    this.game = new ICreature[nbCols][nbRows];
+    this.game = new Creature[nbCols][nbRows];
   }
 
   @Override
@@ -90,8 +109,7 @@ public class MyWorld extends AWorld {
       path = "resources/sharkHammer.gif";
     if (creature instanceof Ice)
       path = "resources/ice.gif";
-    
-    
+
     if (creature instanceof Bishop)
       if (((Bishop) creature).isBlack())
         path = "resources/bishop_B.png";
@@ -126,7 +144,7 @@ public class MyWorld extends AWorld {
     return new ImageIcon(ClassLoader.getSystemResource(path));
   }
 
-  public void moveCreature(ICreature creature, int newCol, int newRow) {
+  public void moveCreature(Creature creature, int newCol, int newRow) {
     for (int col = 0; col < getNbCols(); col++) {
       for (int row = 0; row < getNbRows(); row++) {
         if (game[col][row] == creature)
@@ -197,10 +215,10 @@ public class MyWorld extends AWorld {
     return iceChange;
   }
 
-  public void summonCreature(LinkedList<ICreature> list) {
+  public void summonCreature(LinkedList<Creature> list) {
     int row, col;
     while (!list.isEmpty()) {
-      ICreature creature = list.poll();
+      Creature creature = list.poll();
       do {
         row = rd.nextInt(game.length);
         col = rd.nextInt(game.length);
@@ -233,8 +251,125 @@ public class MyWorld extends AWorld {
   public void summonCreature(Ice ice, int row, int col) {
     ice.setPosition(row, col);
     game[row][col] = ice;
-    // TODO Auto-generated method stub
-
   }
 
+  public void init(boolean isChessLife) {
+    if (isChessLife) {
+      King kW = (King) pieceFactory.createPiece(CreatureType.KING, false,
+          new Point(4, 7));
+      King kB = (King) pieceFactory.createPiece(CreatureType.KING, true,
+          new Point(4, 0));
+      Bishop bW1 = (Bishop) pieceFactory.createPiece(CreatureType.BISHOP, false,
+          new Point(2, 6));
+      Bishop bW2 = (Bishop) pieceFactory.createPiece(CreatureType.BISHOP, false,
+          new Point(5, 6));
+      Bishop bB1 = (Bishop) pieceFactory.createPiece(CreatureType.BISHOP, true,
+          new Point(2, 1));
+      Bishop bB2 = (Bishop) pieceFactory.createPiece(CreatureType.BISHOP, true,
+          new Point(5, 1));
+      Knight kW1 = (Knight) pieceFactory.createPiece(CreatureType.KNIGHT, false,
+          new Point(0, 4));
+      Knight kW2 = (Knight) pieceFactory.createPiece(CreatureType.KNIGHT, false,
+          new Point(7, 4));
+      Queen qW = (Queen) pieceFactory.createPiece(CreatureType.QUEEN, false,
+          new Point(3, 0));
+      Queen qB = (Queen) pieceFactory.createPiece(CreatureType.QUEEN, true,
+          new Point(3, 7));
+      Pawn pB1 = (Pawn) pieceFactory.createPiece(CreatureType.PAWN, false,
+          new Point(0, 7));
+      Pawn pB2 = (Pawn) pieceFactory.createPiece(CreatureType.PAWN, false,
+          new Point(7, 7));
+
+      list.add(kW);
+      list.add(kB);
+      list.add(bW1);
+      list.add(bW2);
+      list.add(bB1);
+      list.add(bB2);
+      list.add(kW1);
+      list.add(kW2);
+      list.add(qW);
+      list.add(qB);
+      list.add(pB1);
+      list.add(pB2);
+    } else {
+      liveCreator = new LiveCreator();
+      deadCreator = new LiveCreator();
+
+      Orca orca = (Orca) liveCreator.createCreature(CreatureType.ORCA,
+          new Point(2, 2));
+      list.add(orca);
+
+      ArrayList<Ice> iceList = new ArrayList<>();
+      for (int i = 0; i < NumberOfIce; i++) {
+        Ice ice = (Ice) deadCreator.createCreature(CreatureType.ICE,
+            new Point(rd.nextInt(5), rd.nextInt(5)));
+        iceList.add(ice);
+      }
+      list.addAll(iceList);
+      game_not_finished = true;
+      loop_id = 0;
+      summonCreature(list);
+    }
+
+    startSimulation(isChessLife);
+  }
+
+  private void startSimulation(boolean isChessLife) {
+    if (isChessLife) {
+      while (!gameOver) {
+        createMoves(isChessLife);
+        invoker.doAll();
+        reloadGame();
+        updateView();
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        gameOver = isGameOver();
+      }
+    }
+  }
+
+  private void reloadGame() {
+    for (Creature c : list) {
+      //System.out.println("MyWorld-reload: " +c.getClass()+  " (" + c.getPosition().x +"/"+c.getPosition().y+")");
+      moveCreature(c, c.getPosition().x, c.getPosition().y);
+    }
+  }
+
+  private void createMoves(boolean isChessLife) {
+    if (isChessLife) {
+      for (Creature c : list) {
+        Move m = null;
+        switch (c.getClass().getCanonicalName()) {
+          case "creature.Bishop":
+            m = new MoveBishop(game, (Bishop) c);
+            break;
+          case "creature.King":
+            m = new MoveKing(game, (King) c);
+            break;
+          case "creature.Knight":
+            m = new MoveKnight(game, (Knight) c);
+            break;
+          case "creature.Pawn":
+            m = new MovePawn(game, (Pawn) c);
+            break;
+          case "creature.Queen":
+            m = new MoveQueen(game, (Queen) c);
+            break;
+          case "creature.Rook":
+            m = new MoveRook(game, (Rook) c);
+            break;
+        }
+        invoker.addMove(m);
+      }
+    }
+  }
+
+  public boolean isGameOver() {
+    // do all tests
+    return false;
+  }
 }

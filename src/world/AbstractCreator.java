@@ -1,9 +1,12 @@
 package world;
 
-import ch.eiafr.gl.simulife.model.ICreature;
+import java.awt.Point;
+
+import creature.Creature;
+import creature.Creature.CreatureType;
 
 public interface AbstractCreator {
   
-  public ICreature createCreature(ICreature creature);
+  public Creature createCreature(CreatureType type, Point p);
 
 }

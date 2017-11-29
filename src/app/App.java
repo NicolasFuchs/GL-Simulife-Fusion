@@ -1,5 +1,6 @@
 package app;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
@@ -26,8 +27,15 @@ public class App {
   private static MyWorld           myWorld;
 
   public static void main(String[] args) {
+    boolean isChessLife = false;
 
-    myWorld = new MyWorld(6, 6, true);
+    if (args.length > 0) {
+      String arg = args[0];
+      if (arg.equalsIgnoreCase("true") || arg.equalsIgnoreCase("false"))
+        isChessLife = Boolean.valueOf(arg);
+    }
+    
+    myWorld = new MyWorld(8, 8, isChessLife);
 
     UserInterface userGraphiqueInterface = new UserInterface(
         new GameGraphicView(myWorld.getNbCols(), myWorld.getNbRows()));
@@ -40,10 +48,11 @@ public class App {
     UserInterface userTextInterface = new UserInterface(new GameTextView());
     myWorld.addObserver(userTextInterface);
 
-    init();
+    myWorld.init(isChessLife);
     myWorld.updateView();
+    
+    
     while (game_not_finished) {
-
       int[] moveOrca = myWorld.calcMove(orca);
       myWorld.moveCreature(orca, moveOrca[0], moveOrca[1]);
       myWorld.updateView();
@@ -53,7 +62,7 @@ public class App {
         int[] move_ice = new int[2];
         if (random.nextBoolean()) {
           move_ice = myWorld.addIce(iceList.get(i));
-          Ice ice = new Ice();
+          Ice ice = new Ice(new Point(move_ice[0], move_ice[1]));
           iceList.add(ice);
           if (move_ice != null)
             myWorld.summonCreature(ice, move_ice[0], move_ice[1]);
@@ -64,12 +73,10 @@ public class App {
           if (move_ice == null) {
             iceList.remove(i);
           } else {
-
             myWorld.moveCreature(iceList.get(i), move_ice[0], move_ice[1]);
             myWorld.updateView();
             waitUpdate();
           }
-
         }
 
       }
@@ -85,22 +92,5 @@ public class App {
       e.printStackTrace();
     }
 
-  }
-
-  private static void init() {
-    LinkedList<ICreature> list = new LinkedList<>();
-    orca = Orca.getInstance();
-    list.add(orca);
-
-    iceList = new ArrayList<>();
-    for (int i = 0; i < NumberOfIce; i++) {
-      Ice ice = new Ice();
-      iceList.add(ice);
-    }
-    list.addAll(iceList);
-    game_not_finished = true;
-    loop_id = 0;
-    random = new Random();
-    myWorld.summonCreature(list);
   }
 }

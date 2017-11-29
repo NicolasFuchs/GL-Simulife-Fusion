@@ -2,7 +2,7 @@ package creature;
 
 import java.awt.*;
 
-public class King extends Piece {
+public class King extends Creature {
   
   public String id = "K";
     public King(boolean isBlack, Point position) {
