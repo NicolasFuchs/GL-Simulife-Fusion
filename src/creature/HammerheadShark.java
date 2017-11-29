@@ -23,23 +23,4 @@ public class HammerheadShark extends Shark {
     this.col = col;
   }
 
-  public int[] calcMove(ICreature[][] game) {
-    int[] move = new int[2];
-    // if (firstMove) {
-    rd = new Random();
-    do {
-      row = rd.nextInt(game.length);
-      col = rd.nextInt(game.length);
-    } while (game[row][col] != null);
-    move[0] = row;
-    move[1] = col;
-
-    firstMove = false;
-
-    // }
-
-    // TODO Auto-generated method stub
-    return move;
-  }
-
 }

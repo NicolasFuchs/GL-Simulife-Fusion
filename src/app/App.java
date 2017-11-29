@@ -50,47 +50,5 @@ public class App {
 
     myWorld.init(isChessLife);
     myWorld.updateView();
-    
-    
-    while (game_not_finished) {
-      int[] moveOrca = myWorld.calcMove(orca);
-      myWorld.moveCreature(orca, moveOrca[0], moveOrca[1]);
-      myWorld.updateView();
-      waitUpdate();
-
-      for (int i = 0; i < iceList.size(); i++) {
-        int[] move_ice = new int[2];
-        if (random.nextBoolean()) {
-          move_ice = myWorld.addIce(iceList.get(i));
-          Ice ice = new Ice(new Point(move_ice[0], move_ice[1]));
-          iceList.add(ice);
-          if (move_ice != null)
-            myWorld.summonCreature(ice, move_ice[0], move_ice[1]);
-          myWorld.updateView();
-          waitUpdate();
-        } else {
-          move_ice = myWorld.removeIce(iceList.get(i));
-          if (move_ice == null) {
-            iceList.remove(i);
-          } else {
-            myWorld.moveCreature(iceList.get(i), move_ice[0], move_ice[1]);
-            myWorld.updateView();
-            waitUpdate();
-          }
-        }
-
-      }
-
-    }
-
-  }
-
-  private static void waitUpdate() {
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-
   }
 }

@@ -2,7 +2,6 @@ package world;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.time.chrono.IsoChronology;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
@@ -205,16 +204,6 @@ public class MyWorld extends AWorld {
     return move;
   }
 
-  public int[] addIce(Ice ice) {
-    int[] iceChange = ice.addIce(game);
-    return iceChange;
-  }
-
-  public int[] removeIce(Ice ice) {
-    int[] iceChange = ice.removeIce(game);
-    return iceChange;
-  }
-
   public void summonCreature(LinkedList<Creature> list) {
     int row, col;
     while (!list.isEmpty()) {
@@ -294,78 +283,97 @@ public class MyWorld extends AWorld {
       list.add(pB2);
     } else {
       liveCreator = new LiveCreator();
-      deadCreator = new LiveCreator();
+      deadCreator = new DeadCreator();
 
       Orca orca = (Orca) liveCreator.createCreature(CreatureType.ORCA,
           new Point(2, 2));
       list.add(orca);
 
-      ArrayList<Ice> iceList = new ArrayList<>();
       for (int i = 0; i < NumberOfIce; i++) {
         Ice ice = (Ice) deadCreator.createCreature(CreatureType.ICE,
-            new Point(rd.nextInt(5), rd.nextInt(5)));
-        iceList.add(ice);
+            new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+        list.add(ice);
       }
-      list.addAll(iceList);
-      game_not_finished = true;
-      loop_id = 0;
-      summonCreature(list);
+      
+      list.add(new HammerheadShark(new Point(rd.nextInt(game.length), rd.nextInt(game.length))));
+      list.add(new WhiteShark(new Point(rd.nextInt(game.length), rd.nextInt(game.length))));
     }
 
     startSimulation(isChessLife);
   }
 
   private void startSimulation(boolean isChessLife) {
-    if (isChessLife) {
-      while (!gameOver) {
-        createMoves(isChessLife);
-        invoker.doAll();
-        reloadGame();
-        updateView();
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-        gameOver = isGameOver();
+    while (!gameOver) {
+      createMoves(isChessLife);
+      invoker.doAll();
+      reloadGame();
+      updateView();
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
       }
+      gameOver = isGameOver();
     }
   }
 
+  private void addRemoveIce(){
+    
+  }
   private void reloadGame() {
     for (Creature c : list) {
-      //System.out.println("MyWorld-reload: " +c.getClass()+  " (" + c.getPosition().x +"/"+c.getPosition().y+")");
+      // System.out.println("MyWorld-reload: " +c.getClass()+ " (" +
+      // c.getPosition().x +"/"+c.getPosition().y+")");
       moveCreature(c, c.getPosition().x, c.getPosition().y);
+    
     }
   }
 
   private void createMoves(boolean isChessLife) {
-    if (isChessLife) {
-      for (Creature c : list) {
-        Move m = null;
-        switch (c.getClass().getCanonicalName()) {
-          case "creature.Bishop":
-            m = new MoveBishop(game, (Bishop) c);
-            break;
-          case "creature.King":
-            m = new MoveKing(game, (King) c);
-            break;
-          case "creature.Knight":
-            m = new MoveKnight(game, (Knight) c);
-            break;
-          case "creature.Pawn":
-            m = new MovePawn(game, (Pawn) c);
-            break;
-          case "creature.Queen":
-            m = new MoveQueen(game, (Queen) c);
-            break;
-          case "creature.Rook":
-            m = new MoveRook(game, (Rook) c);
-            break;
-        }
-        invoker.addMove(m);
+    for (Creature c : list) {
+      Move m = null;
+      
+      Object o = c.getClass();
+      String classe = ((Class<? extends Creature>) o).getCanonicalName();
+      System.out.println(classe);
+      switch (c.getClass().getCanonicalName()) {
+        case "creature.Ice":
+          m = new MoveIce(game, (Ice) c);
+          break;
+        case "creature.HammerheadShark":
+          m = new MoveShark(game, (HammerheadShark) c);
+          break;
+        case "creature.WhiteShark":
+          m = new MoveShark(game, (WhiteShark) c);
+          break;
+        case "creature.Orca":
+          m = new MoveOrca(game, (Orca) c);
+          break;
+        case "creature.Penguin":
+          m = new MovePenguin(game, (Penguin) c);
+          break;
+        case "creature.Bishop":
+          m = new MoveBishop(game, (Bishop) c);
+          break;
+        case "creature.King":
+          m = new MoveKing(game, (King) c);
+          break;
+        case "creature.Knight":
+          m = new MoveKnight(game, (Knight) c);
+          break;
+        case "creature.Pawn":
+          m = new MovePawn(game, (Pawn) c);
+          break;
+        case "creature.Queen":
+          m = new MoveQueen(game, (Queen) c);
+          break;
+        case "creature.Rook":
+          m = new MoveRook(game, (Rook) c);
+          break;
       }
+      invoker.addMove(m);
     }
+
   }
 
   public boolean isGameOver() {

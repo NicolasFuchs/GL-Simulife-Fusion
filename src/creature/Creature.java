@@ -14,6 +14,7 @@ public class Creature implements ICreature {
   }
 
   public Creature(Point position) {
+    this.position = position;
   }
 
   public Creature(boolean isBlack, Point position) {

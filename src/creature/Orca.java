@@ -29,19 +29,6 @@ public class Orca extends Creature {
     this.col = col;
   }
 
-  public int[] calcMove(ICreature[][] game) {
-    int[] move = new int[2];
-
-    do {
-      row = rd.nextInt(game.length);
-      col = rd.nextInt(game.length);
-    } while (game[row][col] != null);
-
-    move[0] = row;
-    move[1] = col;
-    return move;
-  }
-
   public static Orca getInstance(Point p) {
     if (instance == null) {
       instance = new Orca(p);
