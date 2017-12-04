@@ -25,4 +25,9 @@ public class Rook extends Creature {
 
 		}
 	}
+
+	@Override
+	public String getId() {
+		return id;
+	}
 }

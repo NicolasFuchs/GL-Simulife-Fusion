@@ -4,17 +4,18 @@ import java.awt.*;
 
 public class Pawn extends Creature {
 
-  public String id = "P";
+	public String id = "P";
 
-  public Pawn(boolean isBlack, Point position) {
-    super(isBlack, position);
-  }
-  @Override
-  public Color getColor() {
-  	// TODO Auto-generated method stub
-  	return Color.ORANGE;
-  }
-  
+	public Pawn(boolean isBlack, Point position) {
+		super(isBlack, position);
+	}
+
+	@Override
+	public Color getColor() {
+		// TODO Auto-generated method stub
+		return Color.ORANGE;
+	}
+
 	@Override
 	public String getPath() {
 		if (isBlack) {
@@ -24,5 +25,10 @@ public class Pawn extends Creature {
 
 		}
 	}
-    
+
+	@Override
+	public String getId() {
+		return id;
+	}
+
 }

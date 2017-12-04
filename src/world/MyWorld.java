@@ -71,8 +71,6 @@ public class MyWorld extends AWorld {
   public String getStringFor(ICreature creature) {
 	if(creature instanceof Creature)
 		return ((Creature) creature).getId();
-    
-
     return "_";
   }
 
@@ -105,7 +103,7 @@ public class MyWorld extends AWorld {
     return Color.WHITE;
   }
 
-/*  public int[] calcMove(ICreature creature) {
+  public int[] calcMove(ICreature creature) {
 
     int[] move = new int[2];
     if (creature instanceof Orca) {
@@ -126,7 +124,7 @@ public class MyWorld extends AWorld {
     }
 
     return move;
-  }*/
+  }
 
   /*public void summonCreature(LinkedList<Creature> list) {
     int row, col;

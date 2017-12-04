@@ -19,6 +19,16 @@ public class Bishop extends Creature {
 
 		}
 	}
+	 @Override
+		public String getId() {
+			return id;
+		}
+	 
+		@Override
+		public Color getColor() {
+			// TODO Auto-generated method stub
+			return Color.GREEN;
+		}
   
 
 }
