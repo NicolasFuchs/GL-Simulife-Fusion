@@ -68,7 +68,6 @@ public class MyGameGraphicView implements IGameView {
         }
       }
     }
-
     this.m_Frame.repaint();
   }
 

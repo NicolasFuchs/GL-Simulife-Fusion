@@ -29,7 +29,7 @@ public class App {
   private static int               loop_id;
   private static Random            random;
   private static MyWorld           myWorld;
-
+  
   public static void main(String[] args) {
     boolean isChessLife;
     JFrame frame = new JFrame();
