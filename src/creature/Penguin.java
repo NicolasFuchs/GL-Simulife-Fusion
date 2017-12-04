@@ -20,10 +20,21 @@ public class Penguin extends Creature {
 
   public Penguin(Point position) {
     super(position);
-    // TODO Auto-generated constructor stub
   }
+  
+  @Override
+  public Color getColor() {
+  	return Color.BLACK;
+  }
+  
+    
 
-  public void setPosition(int row, int col) {
+  @Override
+public String getPath() {
+	return "resources/pingouin.gif";
+}
+
+public void setPosition(int row, int col) {
     this.row = row;
     this.col = col;
   }

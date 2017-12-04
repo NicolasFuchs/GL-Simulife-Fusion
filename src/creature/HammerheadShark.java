@@ -23,4 +23,9 @@ public class HammerheadShark extends Shark {
     this.col = col;
   }
 
+  
+  @Override
+  public String getPath() {
+  	return "resources/sharkHammer.gif";
+  }
 }

@@ -9,4 +9,20 @@ public class Pawn extends Creature {
   public Pawn(boolean isBlack, Point position) {
     super(isBlack, position);
   }
+  @Override
+  public Color getColor() {
+  	// TODO Auto-generated method stub
+  	return Color.ORANGE;
+  }
+  
+	@Override
+	public String getPath() {
+		if (isBlack) {
+			return "resources/pawn_B.png";
+		} else {
+			return "resources/pawn_W.png";
+
+		}
+	}
+    
 }

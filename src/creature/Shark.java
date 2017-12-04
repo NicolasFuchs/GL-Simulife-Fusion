@@ -32,4 +32,7 @@ abstract class Shark extends Creature {
     this.id = id;
   }
 
+
+  
+
 }

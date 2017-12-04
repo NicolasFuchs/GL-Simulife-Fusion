@@ -25,4 +25,17 @@ public class Ice extends Creature {
     this.col = col;
   }
 
+@Override
+public Color getColor() {
+	return Color.BLUE;
+}
+
+@Override
+public String getPath() {
+	return "resources/ice.gif";
+}
+
+
+
+  
 }

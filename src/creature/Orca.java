@@ -23,6 +23,17 @@ public class Orca extends Creature {
     super(position);
     // TODO Auto-generated constructor stub
   }
+  @Override
+  public Color getColor() {
+  	// TODO Auto-generated method stub
+  	return Color.CYAN;
+  }
+  
+	@Override
+	public String getPath() {
+		return "resources/orca.gif";
+	}
+    
   
   public void setPosition(int row, int col) {
     this.row = row;

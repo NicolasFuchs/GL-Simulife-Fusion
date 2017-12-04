@@ -1,5 +1,6 @@
 package creature;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.util.Random;
 
@@ -22,5 +23,16 @@ public class WhiteShark extends Shark {
     this.row = row;
     this.col = col;
   }
+
+@Override
+public Color getColor() {
+	return Color.GRAY;
+}
+
+@Override
+public String getPath() {
+	// TODO Auto-generated method stub
+	return "resources/shark.gif";
+}
 
 }
