@@ -3,6 +3,7 @@ package world;
 import java.util.Stack;
 
 import move.IMove;
+import move.MovePenguin;
 
 public class MoveInvoker {
 
@@ -24,6 +25,7 @@ public class MoveInvoker {
       move.execute();
       done.push(move);
     }
+    MovePenguin.isPlayed=!MovePenguin.isPlayed;
   }
 
   public void undoAll() {

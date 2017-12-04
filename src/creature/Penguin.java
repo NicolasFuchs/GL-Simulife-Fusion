@@ -8,109 +8,123 @@ import ch.eiafr.gl.simulife.model.ICreature;
 
 public class Penguin extends Creature {
 
-  boolean        firstMove = true;
-  private Random rd;
-  private int    row;
-  private int    col;
-  private int    rowShark;
-  private int    colShark;
-  public String  icon      = "pingouin.gif";
-  public String  id        = "P";
-  public Color   color     = Color.YELLOW;
+	boolean firstMove = true;
+	private Random rd;
+	private int row;
+	private int col;
+	private int rowShark;
+	private int colShark;
+	public String icon = "pingouin.gif";
+	public String id = "P";
+	public Color color = Color.YELLOW;
 
-  public Penguin(Point position) {
-    super(position);
-    // TODO Auto-generated constructor stub
-  }
+	public Penguin(Point position) {
+		super(position);
+	}
 
-  public void setPosition(int row, int col) {
-    this.row = row;
-    this.col = col;
-  }
+	@Override
+	public Color getColor() {
+		return Color.BLACK;
+	}
 
-  public int[] calcMove(ICreature[][] game) {
-    int[] move = new int[2];
+	@Override
+	public String getId() {
+		return id;
+	}
 
-    return move;
-  }
+	@Override
+	public String getPath() {
+		return "resources/pingouin.gif";
+	}
 
-  // check where all shark are
-  private boolean isSharkSeen(ICreature[][] game) {
-    int tmpRow, tmpCol;
-    tmpRow = row;
-    tmpCol = col;
-    if (row == 0 && col == 0) {
-      // 5 case in coin
-      ICreature crea = game[tmpRow][tmpCol];
+	public void setPosition(int row, int col) {
+		this.row = row;
+		this.col = col;
+	}
 
-      if (crea instanceof WhiteShark || crea instanceof HammerheadShark) {
-        rowShark = tmpRow;
-        colShark = tmpCol;
-        return true;
-      }
-    } else if (row == 0 && col == game.length - 1) {
+	public int[] calcMove(ICreature[][] game) {
+		int[] move = new int[2];
 
-    } else if (row == game.length - 1 && col == 0) {
+		return move;
+	}
 
-    } else if (row == game.length - 1 && col == game.length - 1) {
+	// check where all shark are
+	private boolean isSharkSeen(ICreature[][] game) {
+		int tmpRow, tmpCol;
+		tmpRow = row;
+		tmpCol = col;
+		if (row == 0 && col == 0) {
+			// 5 case in coin
+			ICreature crea = game[tmpRow][tmpCol];
 
-    } else if (col == game.length - 1) {
-      // 8 case
+			if (crea instanceof WhiteShark || crea instanceof HammerheadShark) {
+				rowShark = tmpRow;
+				colShark = tmpCol;
+				return true;
+			}
+		} else if (row == 0 && col == game.length - 1) {
 
-    } else if (row == game.length - 1) {
+		} else if (row == game.length - 1 && col == 0) {
 
-    } else if (row == 0) {
+		} else if (row == game.length - 1 && col == game.length - 1) {
 
-    } else if (col == 0) {
+		} else if (col == game.length - 1) {
+			// 8 case
 
-    } else {
-      // 12
+		} else if (row == game.length - 1) {
 
-    }
-    // TODO Auto-generated method stub
-    return false;
-  }
+		} else if (row == 0) {
 
-  private void moveRdn(ICreature[][] game) {
-    int pos = rd.nextInt(8);
-    switch (pos) {
-      case 0:
-        row--;
-        col--;
-        break;
-      case 1:
-        row--;
-        break;
-      case 2:
-        row--;
-        col++;
-        break;
-      case 3:
-        col--;
-        break;
-      case 4:
-        col++;
-        break;
-      case 5:
-        row++;
-        col--;
-        break;
-      case 6:
-        row++;
+		} else if (col == 0) {
 
-        break;
-      case 7:
-        row++;
-        col++;
-        break;
+		} else {
+			// 12
 
-      default:
-        break;
-    }
+		}
+		// TODO Auto-generated method stub
+		return false;
+	}
 
-    if (game.length < row || game.length < col)
-      moveRdn(game);
+	private void moveRdn(ICreature[][] game) {
+		int pos = rd.nextInt(8);
+		switch (pos) {
+		case 0:
+			row--;
+			col--;
+			break;
+		case 1:
+			row--;
+			break;
+		case 2:
+			row--;
+			col++;
+			break;
+		case 3:
+			col--;
+			break;
+		case 4:
+			col++;
+			break;
+		case 5:
+			row++;
+			col--;
+			break;
+		case 6:
+			row++;
 
-  }
+			break;
+		case 7:
+			row++;
+			col++;
+			break;
+
+		default:
+			break;
+		}
+
+		if (game.length < row || game.length < col)
+			moveRdn(game);
+
+	}
 
 }

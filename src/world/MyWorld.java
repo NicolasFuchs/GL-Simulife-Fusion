@@ -2,6 +2,7 @@ package world;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
@@ -68,29 +69,8 @@ public class MyWorld extends AWorld {
 
   @Override
   public String getStringFor(ICreature creature) {
-    if (creature instanceof Orca)
-      return ((Orca) creature).id;
-    if (creature instanceof Penguin)
-      return ((Penguin) creature).id;
-    if (creature instanceof WhiteShark)
-      return ((WhiteShark) creature).id;
-    if (creature instanceof HammerheadShark)
-      return ((HammerheadShark) creature).id;
-    if (creature instanceof Ice)
-      return ((Ice) creature).id;
-    if (creature instanceof Bishop)
-      return ((Bishop) creature).id;
-    if (creature instanceof King)
-      return ((King) creature).id;
-    if (creature instanceof Knight)
-      return ((Knight) creature).id;
-    if (creature instanceof Pawn)
-      return ((Pawn) creature).id;
-    if (creature instanceof Queen)
-      return ((Queen) creature).id;
-    if (creature instanceof Rook)
-      return ((Rook) creature).id;
-
+	if(creature instanceof Creature)
+		return ((Creature) creature).getId();
     return "_";
   }
 
@@ -98,47 +78,9 @@ public class MyWorld extends AWorld {
   public ImageIcon getIconeFor(ICreature creature) {
 
     String path = "empty.gif";
-    if (creature instanceof Orca)
-      path = "resources/orca.gif";
-    if (creature instanceof Penguin)
-      path = "resources/pingouin.gif";
-    if (creature instanceof WhiteShark)
-      path = "resources/shark.gif";
-    if (creature instanceof HammerheadShark)
-      path = "resources/sharkHammer.gif";
-    if (creature instanceof Ice)
-      path = "resources/ice.gif";
-
-    if (creature instanceof Bishop)
-      if (((Bishop) creature).isBlack())
-        path = "resources/bishop_B.png";
-      else
-        path = "resources/bishop_W.png";
-    if (creature instanceof King)
-      if (((King) creature).isBlack())
-        path = "resources/king_B.png";
-      else
-        path = "resources/king_W.png";
-    if (creature instanceof Knight)
-      if (((Knight) creature).isBlack())
-        path = "resources/knight_B.png";
-      else
-        path = "resources/knight_W.png";
-    if (creature instanceof Pawn)
-      if (((Pawn) creature).isBlack())
-        path = "resources/pawn_B.png";
-      else
-        path = "resources/pawn_W.png";
-    if (creature instanceof Queen)
-      if (((Queen) creature).isBlack())
-        path = "resources/queen_B.png";
-      else
-        path = "resources/queen_W.png";
-    if (creature instanceof Rook)
-      if (((Rook) creature).isBlack())
-        path = "resources/rook_B.png";
-      else
-        path = "resources/rook_W.png";
+    if(creature instanceof Creature)
+    	path=((Creature) creature).getPath();
+    
 
     return new ImageIcon(ClassLoader.getSystemResource(path));
   }
@@ -153,30 +95,10 @@ public class MyWorld extends AWorld {
     game[newCol][newRow] = creature;
   }
 
-  @Override
+ @Override
   public Color getColorFor(ICreature creature) {
-    if (creature instanceof Ice)
-      return Color.BLUE;
-    if (creature instanceof WhiteShark)
-      return Color.GRAY;
-    if (creature instanceof HammerheadShark)
-      return Color.DARK_GRAY;
-    if (creature instanceof Orca)
-      return Color.CYAN;
-    if (creature instanceof Penguin)
-      return Color.BLACK;
-    if (creature instanceof Bishop)
-      return Color.GREEN;
-    if (creature instanceof King)
-      return Color.MAGENTA;
-    if (creature instanceof Knight)
-      return Color.RED;
-    if (creature instanceof Pawn)
-      return Color.ORANGE;
-    if (creature instanceof Queen)
-      return Color.PINK;
-    if (creature instanceof Rook)
-      return Color.YELLOW;
+	if(creature instanceof Creature)
+		return  ((Creature) creature).getColor();
 
     return Color.WHITE;
   }
@@ -204,7 +126,7 @@ public class MyWorld extends AWorld {
     return move;
   }
 
-  public void summonCreature(LinkedList<Creature> list) {
+  /*public void summonCreature(LinkedList<Creature> list) {
     int row, col;
     while (!list.isEmpty()) {
       Creature creature = list.poll();
@@ -236,7 +158,7 @@ public class MyWorld extends AWorld {
     }
 
   }
-
+*/
   public void summonCreature(Ice ice, int row, int col) {
     ice.setPosition(row, col);
     game[row][col] = ice;
@@ -304,7 +226,7 @@ public class MyWorld extends AWorld {
 
   private void startSimulation(boolean isChessLife) {
     while (!gameOver) {
-      createMoves(isChessLife);
+      createMoves();
       invoker.doAll();
       reloadGame();
       updateView();
@@ -317,9 +239,7 @@ public class MyWorld extends AWorld {
     }
   }
 
-  private void addRemoveIce(){
-    
-  }
+
   private void reloadGame() {
     for (Creature c : list) {
       // System.out.println("MyWorld-reload: " +c.getClass()+ " (" +
@@ -329,16 +249,16 @@ public class MyWorld extends AWorld {
     }
   }
 
-  private void createMoves(boolean isChessLife) {
+  private void createMoves() {
     for (Creature c : list) {
       Move m = null;
       
       Object o = c.getClass();
       String classe = ((Class<? extends Creature>) o).getCanonicalName();
-      System.out.println(classe);
       switch (c.getClass().getCanonicalName()) {
         case "creature.Ice":
-          m = new MoveIce(game, (Ice) c);
+          m = new MoveIce(game, (Ice) c,list);
+          
           break;
         case "creature.HammerheadShark":
           m = new MoveShark(game, (HammerheadShark) c);
