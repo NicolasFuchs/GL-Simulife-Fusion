@@ -26,6 +26,6 @@ public class HammerheadShark extends Shark {
   
   @Override
   public String getPath() {
-  	return "resources/sharkHammer.gif";
+  	return "resources/sharkHammer.png";
   }
 }

@@ -32,7 +32,7 @@ public Color getColor() {
 @Override
 public String getPath() {
 	// TODO Auto-generated method stub
-	return "resources/shark.gif";
+	return "resources/sharkWhite.png";
 }
 
 }

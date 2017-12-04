@@ -29,9 +29,14 @@ public class Orca extends Creature {
   	return Color.CYAN;
   }
   
+  @Override
+	public String getId() {
+		return id;
+	}
+  
 	@Override
 	public String getPath() {
-		return "resources/orca.gif";
+		return "resources/orca.png";
 	}
     
   

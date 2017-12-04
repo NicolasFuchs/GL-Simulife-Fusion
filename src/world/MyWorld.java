@@ -69,28 +69,9 @@ public class MyWorld extends AWorld {
 
   @Override
   public String getStringFor(ICreature creature) {
-    if (creature instanceof Orca)
-      return ((Orca) creature).id;
-    if (creature instanceof Penguin)
-      return ((Penguin) creature).id;
-    if (creature instanceof WhiteShark)
-      return ((WhiteShark) creature).id;
-    if (creature instanceof HammerheadShark)
-      return ((HammerheadShark) creature).id;
-    if (creature instanceof Ice)
-      return ((Ice) creature).id;
-    if (creature instanceof Bishop)
-      return ((Bishop) creature).id;
-    if (creature instanceof King)
-      return ((King) creature).id;
-    if (creature instanceof Knight)
-      return ((Knight) creature).id;
-    if (creature instanceof Pawn)
-      return ((Pawn) creature).id;
-    if (creature instanceof Queen)
-      return ((Queen) creature).id;
-    if (creature instanceof Rook)
-      return ((Rook) creature).id;
+	if(creature instanceof Creature)
+		return ((Creature) creature).getId();
+    
 
     return "_";
   }

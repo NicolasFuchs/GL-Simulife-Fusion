@@ -10,6 +10,7 @@ public class Creature implements ICreature {
 	boolean isBlack;
 	Point position;
 
+
 	public enum CreatureType {
 		HAMMERSHARK, ICE, ORCA, PENGUIN, SHARK, WHITESHARK, BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK
 	}
@@ -46,5 +47,8 @@ public class Creature implements ICreature {
 
 	public String getPath() {
 		return "empty.gif";
+	}
+	public String getId() {
+		return "_";
 	}
 }
