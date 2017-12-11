@@ -54,7 +54,7 @@ public class Creature implements ICreature {
 		return "_";
 	}
 
-	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+	public Move setMove(Creature[][] game, Creature c) {
 		return new Move(game, c);
 		
 	}

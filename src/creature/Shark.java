@@ -21,7 +21,7 @@ abstract class Shark extends Creature {
 		super(position);
 	}
 	@Override
-	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+	public Move setMove(Creature[][] game, Creature c) {
 		return new MoveShark(game, c);
 		
 	}

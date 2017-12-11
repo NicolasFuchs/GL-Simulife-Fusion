@@ -4,28 +4,35 @@ import java.awt.Point;
 import java.util.LinkedList;
 import java.util.Random;
 
+import com.sun.javafx.scene.control.skin.FXVK.Type;
+
 import ch.eiafr.gl.simulife.model.ICreature;
 import creature.Creature;
+import creature.Ice;
+import creature.Creature.CreatureType;
+import world.AbstractCreator;
+import world.DeadCreator;
 
 public class MoveIce extends Move {
 
 	Random rd;
 	Creature c;
 	private boolean allpositioncheck = false;
-	private LinkedList<Creature> list;
+	private AbstractCreator          deadCreator; 
+	private int id;
 
-	public MoveIce(Creature[][] game, Creature c, LinkedList<Creature> list) {
+	public MoveIce(Creature[][] game, Creature c) {
 		super(game, c);
 		this.c = c;
-		this.list = list;
 		rd = new Random();
 		int percent = rd.nextInt(10);
 
-		if (percent < 3) {
+	   
+		/*if (percent < 3) {
 			removeIce(game);
 		} else {
 			addIce(game);
-		}
+		}*/
 	}
 
 	public void addIce(ICreature[][] game) {
@@ -77,10 +84,11 @@ public class MoveIce extends Move {
 			if (allpositioncheck) {
 				allpositioncheck = false;
 			}
-			
-			setPosition(new Point(tmpRow, tmpCol));
+		
+		//add ice to list
 		} else {
 			setPosition(new Point(row, col));
+		
 		}
 	}
 
@@ -88,6 +96,7 @@ public class MoveIce extends Move {
 		int pourc = rd.nextInt(10);
 		if (pourc < 4) {
 			game[c.getPosition().x][c.getPosition().y] = null;
+			//remove ice to list
 			
 		} else {
 			setPosition(new Point(c.getPosition().x, c.getPosition().y));

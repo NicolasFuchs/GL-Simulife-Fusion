@@ -36,7 +36,7 @@ public class Pawn extends Creature {
 		return id;
 	}
 	@Override
-	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+	public Move setMove(Creature[][] game, Creature c) {
 		return new MovePawn(game, c);
 		
 	}
