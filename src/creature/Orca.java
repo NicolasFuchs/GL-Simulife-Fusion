@@ -2,9 +2,13 @@ package creature;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.LinkedList;
 import java.util.Random;
 
 import ch.eiafr.gl.simulife.model.ICreature;
+import move.Move;
+import move.MoveKing;
+import move.MoveOrca;
 
 public class Orca extends Creature {
 
@@ -50,6 +54,12 @@ public class Orca extends Creature {
 			rd = new Random();
 		}
 		return instance;
+	}
+	
+	@Override
+	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+		return new MoveOrca(game, c);
+		
 	}
 
 }

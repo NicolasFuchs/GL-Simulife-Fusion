@@ -2,9 +2,13 @@ package creature;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.LinkedList;
 import java.util.Random;
 
 import ch.eiafr.gl.simulife.model.ICreature;
+import move.Move;
+import move.MoveKing;
+import move.MovePenguin;
 
 public class Penguin extends Creature {
 
@@ -125,6 +129,12 @@ public class Penguin extends Creature {
 		if (game.length < row || game.length < col)
 			moveRdn(game);
 
+	}
+	
+	@Override
+	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+		return new MovePenguin(game, c);
+		
 	}
 
 }

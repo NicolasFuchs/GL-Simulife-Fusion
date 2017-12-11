@@ -1,9 +1,13 @@
 package creature;
 
 import java.awt.Point;
+import java.util.LinkedList;
 import java.util.Random;
 
 import ch.eiafr.gl.simulife.model.ICreature;
+import move.Move;
+import move.MoveKing;
+import move.MoveShark;
 
 public class HammerheadShark extends Shark {
 
@@ -31,5 +35,11 @@ public class HammerheadShark extends Shark {
 	@Override
 	public String getId() {
 		return id;
+	}
+	
+	@Override
+	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+		return new MoveShark(game, c);
+		
 	}
 }

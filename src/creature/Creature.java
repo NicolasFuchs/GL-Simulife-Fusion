@@ -2,8 +2,10 @@ package creature;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.LinkedList;
 
 import ch.eiafr.gl.simulife.model.ICreature;
+import move.Move;
 
 public class Creature implements ICreature {
 
@@ -50,5 +52,10 @@ public class Creature implements ICreature {
 	}
 	public String getId() {
 		return "_";
+	}
+
+	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+		return new Move(game, c);
+		
 	}
 }

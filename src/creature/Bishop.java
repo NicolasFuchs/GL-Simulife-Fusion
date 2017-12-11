@@ -1,6 +1,11 @@
 package creature;
 
 import java.awt.*;
+import java.util.LinkedList;
+
+import move.Move;
+import move.MoveBishop;
+import move.MoveKing;
 
 public class Bishop extends Creature {
 
@@ -29,6 +34,10 @@ public class Bishop extends Creature {
 			// TODO Auto-generated method stub
 			return Color.GREEN;
 		}
-  
+		@Override
+		public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+			return new MoveBishop(game, c);
+			
+		}
 
 }

@@ -2,6 +2,11 @@ package creature;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.LinkedList;
+
+import move.Move;
+import move.MoveKing;
+import move.MoveShark;
 
 abstract class Shark extends Creature {
 
@@ -15,5 +20,9 @@ abstract class Shark extends Creature {
 	public Shark(Point position) {
 		super(position);
 	}
-
+	@Override
+	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+		return new MoveShark(game, c);
+		
+	}
 }

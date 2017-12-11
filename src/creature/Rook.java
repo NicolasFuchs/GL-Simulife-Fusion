@@ -1,6 +1,11 @@
 package creature;
 
 import java.awt.*;
+import java.util.LinkedList;
+
+import move.Move;
+import move.MoveKing;
+import move.MoveRook;
 
 public class Rook extends Creature {
 
@@ -29,5 +34,11 @@ public class Rook extends Creature {
 	@Override
 	public String getId() {
 		return id;
+	}
+	
+	@Override
+	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+		return new MoveRook(game, c);
+		
 	}
 }

@@ -253,45 +253,8 @@ public class MyWorld extends AWorld {
     for (Creature c : list) {
       Move m = null;
       
-      Object o = c.getClass();
-      String classe = ((Class<? extends Creature>) o).getCanonicalName();
-      switch (c.getClass().getCanonicalName()) {
-        case "creature.Ice":
-          m = new MoveIce(game, (Ice) c,list);
-          
-          break;
-        case "creature.HammerheadShark":
-          m = new MoveShark(game, (HammerheadShark) c);
-          break;
-        case "creature.WhiteShark":
-          m = new MoveShark(game, (WhiteShark) c);
-          break;
-        case "creature.Orca":
-          m = new MoveOrca(game, (Orca) c);
-          break;
-        case "creature.Penguin":
-          m = new MovePenguin(game, (Penguin) c);
-          break;
-        case "creature.Bishop":
-          m = new MoveBishop(game, (Bishop) c);
-          break;
-        case "creature.King":
-          m = new MoveKing(game, (King) c);
-          break;
-        case "creature.Knight":
-          m = new MoveKnight(game, (Knight) c);
-          break;
-        case "creature.Pawn":
-          m = new MovePawn(game, (Pawn) c);
-          break;
-        case "creature.Queen":
-          m = new MoveQueen(game, (Queen) c);
-          break;
-        case "creature.Rook":
-          m = new MoveRook(game, (Rook) c);
-          break;
-      }
-      invoker.addMove(m);
+     m= c.setMove(game,c,list);
+     invoker.addMove(m);
     }
 
   }

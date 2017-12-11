@@ -1,6 +1,11 @@
 package creature;
 
 import java.awt.*;
+import java.util.LinkedList;
+
+import move.Move;
+import move.MoveKing;
+import move.MoveKnight;
 
 public class Knight extends Creature {
 
@@ -31,4 +36,10 @@ public class Knight extends Creature {
 		return id;
 	}
 
+	
+	@Override
+	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+		return new MoveKnight(game, c);
+		
+	}
 }
