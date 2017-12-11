@@ -27,6 +27,12 @@ public class MoveInvoker {
     }
     MovePenguin.isPlayed=!MovePenguin.isPlayed;
   }
+  
+  public void doOne() {
+	  IMove move=todo.pop();
+	  move.execute();
+	  done.push(move);
+  }
 
   public void undoAll() {
     IMove move = null;

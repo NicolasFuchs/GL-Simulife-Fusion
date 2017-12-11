@@ -216,9 +216,12 @@ public class MyWorld extends AWorld {
             new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
         list.add(ice);
       }
-      
-      list.add(new HammerheadShark(new Point(rd.nextInt(game.length), rd.nextInt(game.length))));
-      list.add(new WhiteShark(new Point(rd.nextInt(game.length), rd.nextInt(game.length))));
+      WhiteShark white =(WhiteShark) liveCreator.createCreature(CreatureType.WHITESHARK, new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+      list.add(white);
+      HammerheadShark hammer =(HammerheadShark) liveCreator.createCreature(CreatureType.HAMMERSHARK, new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+      list.add(hammer);
+      Penguin peng =(Penguin) liveCreator.createCreature(CreatureType.PENGUIN, new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+      list.add(peng);
     }
 
     startSimulation(isChessLife);
@@ -226,9 +229,7 @@ public class MyWorld extends AWorld {
 
   private void startSimulation(boolean isChessLife) {
     while (!gameOver) {
-      createMoves();
-      invoker.doAll();
-      reloadGame();
+      simulateMove();
       updateView();
       try {
         Thread.sleep(1000);
@@ -249,12 +250,12 @@ public class MyWorld extends AWorld {
     }
   }
 
-  private void createMoves() {
+  private void simulateMove() {
     for (Creature c : list) {
-      Move m = null;
-      
-     m= c.setMove(game,c,list);
+      Move m =  c.setMove(game,c,list);
      invoker.addMove(m);
+     invoker.doOne();
+     reloadGame();
     }
 
   }
