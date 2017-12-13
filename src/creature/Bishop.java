@@ -35,7 +35,7 @@ public class Bishop extends Creature {
 			return Color.GREEN;
 		}
 		@Override
-		public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+		public Move setMove(Creature[][] game, Creature c) {
 			return new MoveBishop(game, c);
 			
 		}

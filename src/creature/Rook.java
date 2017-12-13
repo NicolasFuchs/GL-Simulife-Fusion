@@ -37,7 +37,7 @@ public class Rook extends Creature {
 	}
 	
 	@Override
-	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
+	public Move setMove(Creature[][] game, Creature c) {
 		return new MoveRook(game, c);
 		
 	}

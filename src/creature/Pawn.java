@@ -36,8 +36,13 @@ public class Pawn extends Creature {
 		return id;
 	}
 	@Override
+<<<<<<< HEAD
 	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
 		return new MovePawn(game, c,list);
+=======
+	public Move setMove(Creature[][] game, Creature c) {
+		return new MovePawn(game, c);
+>>>>>>> branch 'master' of https://gitlab.forge.hefr.ch/GL-2-2017-SimuLife-7/SimulifeFusion.git
 		
 	}
 }
