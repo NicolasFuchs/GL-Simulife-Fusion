@@ -20,6 +20,11 @@ public class MoveKing extends Move {
       dy = rd.nextInt(3)-1;
       newX = c.getPosition().x + dx;
       newY = c.getPosition().y + dy;
+
+      if(dx == 0 && dy == 0)
+        break;
+      System.out.println("Recalc King move: (" + newX + "/" + newY + ")");
+
     } while (!isValidPoint(newX) || !isValidPoint(newY)
         || game[newY][newX] != null);
     setPosition(new Point(newX, newY));

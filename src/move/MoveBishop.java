@@ -21,6 +21,9 @@ public class MoveBishop extends Move {
       dy = rd.nextBoolean() ? dx : -dx;
       newX = c.getPosition().x + dx;
       newY = c.getPosition().y + dy;
+      System.out.println("Recalc Bishop move: (" + newX + "/" + newY + ")");
+      if(dx == 0 && dy == 0)
+        break;
     } while (!isValidPoint(newX) || !isValidPoint(newY)
         || game[newY][newX] != null);
     setPosition(new Point(newX, newY));

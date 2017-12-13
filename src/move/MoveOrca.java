@@ -17,7 +17,7 @@ public class MoveOrca extends Move {
     do {
       newX = rd.nextInt(game.length);
       newY = rd.nextInt(game.length);
-    } while (game[newY][newX] != null);
+    } while (game[newY][newX] != null || game[newY][newX] != c);
     setPosition(new Point(newX, newY));
   }
 }

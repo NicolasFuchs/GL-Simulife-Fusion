@@ -30,8 +30,8 @@ public class MoveIce extends Move {
 
 	public void addIce(ICreature[][] game) {
 		int pourc = rd.nextInt(10);
-		int row = c.getPosition().x;
-		int col = c.getPosition().y;
+		int row = c.getPosition().y;
+		int col = c.getPosition().x;
 		if (pourc < 4) {
 			int pos = 1;
 			int tmpRow = row, tmpCol = col;

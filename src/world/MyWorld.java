@@ -17,8 +17,8 @@ import move.*;
 
 public class MyWorld extends AWorld {
 
-  private int                      nbCols      = 6;
-  private int                      nbRows      = 6;
+  private int                      nbCols      = 8;
+  private int                      nbRows      = 8;
   private static final int         NumberOfIce = 10;
 
   private boolean                  isChessMode;
@@ -49,7 +49,7 @@ public class MyWorld extends AWorld {
     this.nbCols = nbCols;
     this.nbRows = nbRows;
     this.isChessMode = isChessMode;
-    this.game = new Creature[nbCols][nbRows];
+    this.game = new Creature[nbRows][nbCols];
   }
 
   @Override
@@ -64,13 +64,13 @@ public class MyWorld extends AWorld {
 
   @Override
   public ICreature getCreatureAt(int col, int row) {
-    return game[col][row];
+    return game[row][col];
   }
 
   @Override
   public String getStringFor(ICreature creature) {
-	if(creature instanceof Creature)
-		return ((Creature) creature).getId();
+    if (creature instanceof Creature)
+      return ((Creature) creature).getId();
     return "_";
   }
 
@@ -78,27 +78,26 @@ public class MyWorld extends AWorld {
   public ImageIcon getIconeFor(ICreature creature) {
 
     String path = "empty.gif";
-    if(creature instanceof Creature)
-    	path=((Creature) creature).getPath();
-    
+    if (creature instanceof Creature)
+      path = ((Creature) creature).getPath();
 
     return new ImageIcon(ClassLoader.getSystemResource(path));
   }
 
   public void moveCreature(Creature creature, int newCol, int newRow) {
-    for (int col = 0; col < getNbCols(); col++) {
-      for (int row = 0; row < getNbRows(); row++) {
-        if (game[col][row] == creature)
-          game[col][row] = null;
+    for (int row = 0; row < getNbRows(); row++) {
+      for (int col = 0; col < getNbCols(); col++) {
+        if (game[row][col] == creature)
+          game[row][col] = null;
       }
     }
-    game[newCol][newRow] = creature;
+    game[newRow][newCol] = creature;
   }
 
- @Override
+  @Override
   public Color getColorFor(ICreature creature) {
-	if(creature instanceof Creature)
-		return  ((Creature) creature).getColor();
+    if (creature instanceof Creature)
+      return ((Creature) creature).getColor();
 
     return Color.WHITE;
   }
@@ -126,39 +125,22 @@ public class MyWorld extends AWorld {
     return move;
   }
 
-  /*public void summonCreature(LinkedList<Creature> list) {
-    int row, col;
-    while (!list.isEmpty()) {
-      Creature creature = list.poll();
-      do {
-        row = rd.nextInt(game.length);
-        col = rd.nextInt(game.length);
-      } while (game[row][col] != null);
-      game[row][col] = creature;
-
-      if (creature instanceof Orca) {
-        Orca orc = (Orca) creature;
-        orc.setPosition(row, col);
-        ;
-      }
-      if (creature instanceof Penguin) {
-        Penguin p = (Penguin) creature;
-        p.setPosition(row, col);
-      }
-      if (creature instanceof WhiteShark) {
-        WhiteShark w = (WhiteShark) creature;
-        w.setPosition(row, col);
-      }
-      if (creature instanceof HammerheadShark) {
-        HammerheadShark h = (HammerheadShark) creature;
-        h.setPosition(row, col);
-      }
-      if (creature instanceof Ice)
-        ((Ice) creature).setPosition(row, col);
-    }
-
-  }
-*/
+  /*
+   * public void summonCreature(LinkedList<Creature> list) { int row, col; while
+   * (!list.isEmpty()) { Creature creature = list.poll(); do { row =
+   * rd.nextInt(game.length); col = rd.nextInt(game.length); } while
+   * (game[row][col] != null); game[row][col] = creature;
+   * 
+   * if (creature instanceof Orca) { Orca orc = (Orca) creature;
+   * orc.setPosition(row, col); ; } if (creature instanceof Penguin) { Penguin p
+   * = (Penguin) creature; p.setPosition(row, col); } if (creature instanceof
+   * WhiteShark) { WhiteShark w = (WhiteShark) creature; w.setPosition(row,
+   * col); } if (creature instanceof HammerheadShark) { HammerheadShark h =
+   * (HammerheadShark) creature; h.setPosition(row, col); } if (creature
+   * instanceof Ice) ((Ice) creature).setPosition(row, col); }
+   * 
+   * }
+   */
   public void summonCreature(Ice ice, int row, int col) {
     ice.setPosition(row, col);
     game[row][col] = ice;
@@ -216,14 +198,22 @@ public class MyWorld extends AWorld {
             new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
         list.add(ice);
       }
-      WhiteShark white =(WhiteShark) liveCreator.createCreature(CreatureType.WHITESHARK, new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+      WhiteShark white = (WhiteShark) liveCreator.createCreature(
+          CreatureType.WHITESHARK,
+          new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
       list.add(white);
-      HammerheadShark hammer =(HammerheadShark) liveCreator.createCreature(CreatureType.HAMMERSHARK, new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+      HammerheadShark hammer = (HammerheadShark) liveCreator.createCreature(
+          CreatureType.HAMMERSHARK,
+          new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
       list.add(hammer);
-      Penguin peng =(Penguin) liveCreator.createCreature(CreatureType.PENGUIN, new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+      Penguin peng = (Penguin) liveCreator.createCreature(CreatureType.PENGUIN,
+          new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
       list.add(peng);
     }
-
+    for (Creature c : list) {
+      moveCreature(c, c.getPosition().x, c.getPosition().y);
+    }
+    updateView();
     startSimulation(isChessLife);
   }
 
@@ -240,24 +230,22 @@ public class MyWorld extends AWorld {
     }
   }
 
-
   private void reloadGame() {
     for (Creature c : list) {
       // System.out.println("MyWorld-reload: " +c.getClass()+ " (" +
       // c.getPosition().x +"/"+c.getPosition().y+")");
       moveCreature(c, c.getPosition().x, c.getPosition().y);
-    
     }
   }
 
   private void simulateMove() {
-    for (Creature c : list) {
-      Move m =  c.setMove(game,c,list);
-     invoker.addMove(m);
-     invoker.doOne();
-     reloadGame();
+    for (int i = 0; i < list.size(); i++) {
+      Creature c = list.get(i);
+      Move m = c.setMove(game, c, list);
+      invoker.addMove(m);
+      invoker.doOne();
+      reloadGame();
     }
-
   }
 
   public boolean isGameOver() {

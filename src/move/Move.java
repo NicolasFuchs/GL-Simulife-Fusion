@@ -17,7 +17,6 @@ public class Move implements IMove {
 
   @Override
   public void execute() {
-    //System.out.println("Move-Execute: " +creature.getClass()+  " (" + dx +"/"+dy+")");
     creature.move(dx, dy);
   }
 

@@ -21,21 +21,21 @@ public class MyGameGraphicView implements IGameView {
   public MyGameGraphicView(int nbCols, int nbRows, boolean isChessLife) {
     this.m_Frame.setDefaultCloseOperation(3);
     this.m_ButtonPanel = new JPanel(new GridLayout(nbRows, nbCols));
-    this.m_grid = new JPanel[nbCols][nbRows];
+    this.m_grid = new JPanel[nbRows][nbCols];
 
     for (int y = 0; y < nbRows; ++y) {
       for (int x = 0; x < nbCols; ++x) {
-        this.m_grid[x][y] = new JPanel(new GridLayout(1, 1));
+        this.m_grid[y][x] = new JPanel(new GridLayout(1, 1));
         if (isChessLife) {
           if ((x + y) % 2 == 0) {
-            this.m_grid[x][y].setBackground(Color.LIGHT_GRAY);
+            this.m_grid[y][x].setBackground(Color.LIGHT_GRAY);
           } else {
-            this.m_grid[x][y].setBackground(Color.GRAY);
+            this.m_grid[y][x].setBackground(Color.GRAY);
           }
         } else {
-          this.m_grid[x][y].setBackground(Color.CYAN);
+          this.m_grid[y][x].setBackground(Color.CYAN);
         }
-        this.m_ButtonPanel.add(this.m_grid[x][y]);
+        this.m_ButtonPanel.add(this.m_grid[y][x]);
       }
     }
 
@@ -49,22 +49,22 @@ public class MyGameGraphicView implements IGameView {
   public void drawNextStep(AWorld world) {
     int col;
     int row;
-    for (col = 0; col < world.getNbCols(); ++col) {
-      for (row = 0; row < world.getNbRows(); ++row) {
-        this.m_grid[col][row].removeAll();
-        this.m_grid[col][row].repaint();
+    for (row = 0; row < world.getNbRows(); ++row) {
+      for (col = 0; col < world.getNbCols(); ++col) {
+        this.m_grid[row][col].removeAll();
+        this.m_grid[row][col].repaint();
       }
     }
 
-    for (col = 0; col < world.getNbCols(); ++col) {
-      for (row = 0; row < world.getNbRows(); ++row) {
-        this.m_grid[col][row].removeAll();
+    for (row = 0; row < world.getNbRows(); ++row) {
+      for (col = 0; col < world.getNbCols(); ++col) {
+        this.m_grid[row][col].removeAll();
         ICreature creature = world.getCreatureAt(col, row);
         if (creature != null) {
           ImageIcon temp = world.getIconeFor(creature);
-          this.m_grid[col][row].add(new JLabel(temp));
-          this.m_grid[col][row].validate();
-          this.m_grid[col][row].repaint();
+          this.m_grid[row][col].add(new JLabel(temp));
+          this.m_grid[row][col].validate();
+          this.m_grid[row][col].repaint();
         }
       }
     }

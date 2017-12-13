@@ -16,7 +16,7 @@ public class MoveKnight extends Move {
     int dx, dy;
     int newX, newY;
     do {
-      int moveInt = rd.nextInt(8);
+      int moveInt = rd.nextInt(9);
 
       switch (moveInt) {
         case 0:
@@ -58,6 +58,9 @@ public class MoveKnight extends Move {
 
       newX = c.getPosition().x + dx;
       newY = c.getPosition().y + dy;
+      if(dx == 0 && dy == 0)
+        break;
+      System.out.println("Recalc Knight move: (" + newX + "/" + newY + ")");
     } while (!isValidPoint(newX) || !isValidPoint(newY)
         || game[newY][newX] != null);
 
