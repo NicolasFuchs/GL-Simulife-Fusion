@@ -1,33 +1,16 @@
 package app;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Random;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import GUI.MyGameGraphicView;
 import ch.eiafr.gl.simulife.gui.UserInterface;
-import ch.eiafr.gl.simulife.gui.game.GameGraphicView;
 import ch.eiafr.gl.simulife.gui.game.GameMatrixView;
 import ch.eiafr.gl.simulife.gui.game.GameTextView;
-import ch.eiafr.gl.simulife.model.ICreature;
-import creature.*;
 import world.MyWorld;
 
 public class App {
 
-  private static final int         NumberOfIce = 10;
-  private static Orca              orca;
-  private static WhiteShark[]      whiteSharks;
-  private static HammerheadShark[] hammerheadSharks;
-  private static Penguin[]         penguins;
-  private static ArrayList<Ice>    iceList;
-  private static boolean           game_not_finished;
-  private static int               loop_id;
-  private static Random            random;
   private static MyWorld           myWorld;
   
   public static void main(String[] args) {

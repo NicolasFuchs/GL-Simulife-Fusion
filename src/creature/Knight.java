@@ -38,7 +38,8 @@ public class Knight extends Creature {
 
 	
 	@Override
-	public Move setMove(Creature[][] game, Creature c) {
+	public Move setMove(Creature[][] game, Creature c,
+	      LinkedList<Creature> list) {
 		return new MoveKnight(game, c);
 		
 	}
