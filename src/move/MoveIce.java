@@ -7,7 +7,6 @@ import java.util.Random;
 import ch.eiafr.gl.simulife.model.ICreature;
 import creature.Creature;
 import creature.Ice;
-import creature.Penguin;
 import creature.Creature.CreatureType;
 import world.AbstractCreator;
 import world.DeadCreator;
@@ -18,7 +17,6 @@ public class MoveIce extends Move {
     Creature c;
     private boolean allpositioncheck = false;
     private AbstractCreator deadCreator;
-    private int id;
     private LinkedList<Creature> list;
 
     public MoveIce(Creature[][] game, Creature c, LinkedList<Creature> list) {

@@ -2,7 +2,6 @@ package world;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -13,7 +12,6 @@ import ch.eiafr.gl.simulife.model.ICreature;
 import creature.*;
 import creature.Creature.CreatureType;
 import move.Move;
-import move.MovePenguin;
 
 public class MyWorld extends AWorld {
 
@@ -21,7 +19,6 @@ public class MyWorld extends AWorld {
   private int                      nbRows      = 8;
   private static final int         NumberOfIce = 3;
 
-  private boolean                  isChessMode;
   private Creature[][]             game;
   private boolean                  gameOver    = false;
 
@@ -41,7 +38,6 @@ public class MyWorld extends AWorld {
 
     this.nbCols = nbCols;
     this.nbRows = nbRows;
-    this.isChessMode = isChessMode;
     this.game = new Creature[nbRows][nbCols];
   }
 

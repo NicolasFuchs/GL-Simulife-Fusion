@@ -26,9 +26,9 @@ public class MovePenguin extends Move {
                 if (dx == 0 && dy == 0)
                     break;
                 Creature p;
-                if(isValidPoint(newX) &&isValidPoint(newY) &&game[newY][newX] != null) {
-                      p = (Creature) game[newY][newX];
-                    if(Creature.CreatureType.ICE.equals(p))
+                if (isValidPoint(newX) && isValidPoint(newY) && game[newY][newX] != null) {
+                    p = (Creature) game[newY][newX];
+                    if (Creature.CreatureType.ICE.equals(p))
                         break;
                 }
 
