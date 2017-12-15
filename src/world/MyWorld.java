@@ -13,12 +13,13 @@ import ch.eiafr.gl.simulife.model.ICreature;
 import creature.*;
 import creature.Creature.CreatureType;
 import move.Move;
+import move.MovePenguin;
 
 public class MyWorld extends AWorld {
 
   private int                      nbCols      = 8;
   private int                      nbRows      = 8;
-  private static final int         NumberOfIce = 10;
+  private static final int         NumberOfIce = 3;
 
   private boolean                  isChessMode;
   private Creature[][]             game;
@@ -206,7 +207,8 @@ public class MyWorld extends AWorld {
     for (int i = 0; i < list.size(); i++) {
       Creature c = list.get(i);
       Move m = c.setMove(game, c, list);
-      invoker.addMove(m);
+
+     invoker.addMove(m);
       invoker.doOne();
       moveCreature(c, c.getPosition().x, c.getPosition().y);
     }

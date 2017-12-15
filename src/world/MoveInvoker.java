@@ -25,7 +25,7 @@ public class MoveInvoker {
       move.execute();
       done.push(move);
     }
-    MovePenguin.isPlayed=!MovePenguin.isPlayed;
+  
   }
   
   public void doOne() {
