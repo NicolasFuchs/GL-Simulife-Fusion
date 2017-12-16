@@ -177,7 +177,10 @@ public class MyWorld extends AWorld {
       list.add(hammer);
       Penguin peng = (Penguin) liveCreator.createCreature(CreatureType.PENGUIN,
           new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+      Penguin peng1 = (Penguin) liveCreator.createCreature(CreatureType.PENGUIN,
+              new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
       list.add(peng);
+      list.add(peng1);
     }
     for (Creature c : list) {
       moveCreature(c, c.getPosition().x, c.getPosition().y);

@@ -16,6 +16,19 @@ abstract class Shark extends Creature {
   public boolean isHunger() {
     return hunger == 0;
   }
+  public void eat() {
+	  hunger++;
+  }
+  public boolean hunger() {
+	  boolean isalive=true;
+	  if(!isHunger()) {
+		  hunger--;
+		  return isalive;
+	  }else {
+		  return !isalive;
+	  }
+	  
+  }
 
   public Shark(Point position) {
     super(position);
@@ -24,7 +37,7 @@ abstract class Shark extends Creature {
   @Override
   public Move setMove(Creature[][] game, Creature c,
       LinkedList<Creature> list) {
-    return new MoveShark(game, c);
+    return new MoveShark(game, c,list);
 
   }
 }

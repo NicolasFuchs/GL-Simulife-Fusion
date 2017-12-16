@@ -38,7 +38,7 @@ public class HammerheadShark extends Shark {
 	@Override
 	public Move setMove(Creature[][] game, Creature c,
 	      LinkedList<Creature> list) {
-		return new MoveShark(game, c);
+		return new MoveShark(game, c,list);
 		
 	}
 }

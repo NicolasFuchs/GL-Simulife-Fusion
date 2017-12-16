@@ -80,11 +80,7 @@ public class MoveIce extends Move {
                         pos = 1;
                 }
                 Creature p;
-                if(game[tmpRow][tmpCol] != null) {
-                      p = (Creature) game[tmpRow][tmpCol];
-                    if(Creature.CreatureType.PENGUIN.equals(p))
-                        break;
-                }
+    
             } while (game[tmpRow][tmpCol] != null && !allpositioncheck);
             if (allpositioncheck) {
                 allpositioncheck = false;
