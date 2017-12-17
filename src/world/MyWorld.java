@@ -28,12 +28,14 @@ public class MyWorld extends AWorld {
   private MoveInvoker              invoker;
   private AbstractCreator          liveCreator;
   private AbstractCreator          deadCreator;
+  private String                   raison;
 
   public MyWorld(int nbCols, int nbRows, boolean isChessMode) {
     rd = new Random();
     list = new LinkedList<>();
     pieceFactory = new PieceFactory();
     invoker = new MoveInvoker();
+    raison = "";
 
     this.nbCols = nbCols;
     this.nbRows = nbRows;
@@ -203,7 +205,7 @@ public class MyWorld extends AWorld {
     String[] options = new String[2];
     options[0] = new String("Quit");
     options[1] = new String("Restart");
-    if (JOptionPane.showOptionDialog(frame.getContentPane(), "Game Over, restart a new simulation ?",
+    if (JOptionPane.showOptionDialog(frame.getContentPane(), "Game Over, " + raison + " restart a new simulation ?",
             "Simulif", 0, JOptionPane.QUESTION_MESSAGE, null, options,
             null) == JOptionPane.YES_OPTION) {
       System.exit(0);
@@ -225,18 +227,30 @@ public class MyWorld extends AWorld {
 
   public boolean isGameOver(boolean chess) {
     if(chess){
-
+      int king = 0;
+      if(list.isEmpty()) return true;
+      for(Creature c:list){
+        if (c instanceof King) king++;
+      }
+      if(king > 1){
+        raison = "a king is dead";
+        return false;
+      }
     } else {
       if(list.isEmpty()) return true;
       boolean requinOk = false;
       boolean pinguinsOk = false;
       for(Creature c:list){
-        if (c instanceof HammerheadShark || c instanceof WhiteShark)
+        if (c instanceof HammerheadShark || c instanceof WhiteShark) {
           requinOk = true;
-        if( c instanceof  Penguin)
+        }
+        if( c instanceof  Penguin) {
           pinguinsOk = true;
+        }
       }
       if(requinOk && pinguinsOk) return false;
+      if(!requinOk)raison = "No more Sharks";
+      if(!pinguinsOk)raison = "No more Penguin";
     }
     return true;
   }
