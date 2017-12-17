@@ -1,17 +1,16 @@
 package world;
 
-import java.awt.Color;
-import java.awt.Point;
-import java.util.LinkedList;
-import java.util.Random;
-
-import javax.swing.ImageIcon;
-
+import app.App;
 import ch.eiafr.gl.simulife.model.AWorld;
 import ch.eiafr.gl.simulife.model.ICreature;
 import creature.*;
 import creature.Creature.CreatureType;
 import move.Move;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class MyWorld extends AWorld {
 
@@ -198,7 +197,18 @@ public class MyWorld extends AWorld {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-      gameOver = isGameOver();
+      gameOver = isGameOver(isChessLife);
+    }
+    JFrame frame = new JFrame();
+    String[] options = new String[2];
+    options[0] = new String("Quit");
+    options[1] = new String("Restart");
+    if (JOptionPane.showOptionDialog(frame.getContentPane(), "Game Over, restart a new simulation ?",
+            "Simulif", 0, JOptionPane.QUESTION_MESSAGE, null, options,
+            null) == JOptionPane.YES_OPTION) {
+      System.exit(0);
+    } else {
+      App.main(new String[0]);
     }
   }
 
@@ -213,8 +223,21 @@ public class MyWorld extends AWorld {
     }
   }
 
-  public boolean isGameOver() {
-    // do all tests
-    return false;
+  public boolean isGameOver(boolean chess) {
+    if(chess){
+
+    } else {
+      if(list.isEmpty()) return true;
+      boolean requinOk = false;
+      boolean pinguinsOk = false;
+      for(Creature c:list){
+        if (c instanceof HammerheadShark || c instanceof WhiteShark)
+          requinOk = true;
+        if( c instanceof  Penguin)
+          pinguinsOk = true;
+      }
+      if(requinOk && pinguinsOk) return false;
+    }
+    return true;
   }
 }

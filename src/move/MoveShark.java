@@ -1,12 +1,12 @@
 package move;
 
-import java.awt.Point;
-import java.util.LinkedList;
-import java.util.Random;
-
 import creature.Creature;
 import creature.HammerheadShark;
 import creature.WhiteShark;
+
+import java.awt.*;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class MoveShark extends Move {
 
@@ -52,16 +52,18 @@ public class MoveShark extends Move {
 		setPosition(new Point(newX, newY));
 		if (white != null) {
 			if (!white.hunger()) {
+				game[(int) c.getPosition().getY()][(int) c.getPosition().getX()] = null;
 				list.remove(c);
-				game[newY][newX]=null;
 			}
 		}
 
 		if (hammer != null) {
 			if (!hammer.hunger()) {
-				list.remove(c);
 				game[newY][newX]=null;
-
+				game[newX][newY]=null;
+				game[(int) c.getPosition().getX()][(int) c.getPosition().getY()] = null;
+				game[(int) c.getPosition().getY()][(int) c.getPosition().getX()] = null;
+				list.remove(c);
 			}
 		}
 	}
