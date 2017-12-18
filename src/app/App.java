@@ -1,13 +1,12 @@
 package app;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import GUI.MyGameGraphicView;
 import ch.eiafr.gl.simulife.gui.UserInterface;
 import ch.eiafr.gl.simulife.gui.game.GameMatrixView;
 import ch.eiafr.gl.simulife.gui.game.GameTextView;
 import world.MyWorld;
+
+import javax.swing.*;
 
 public class App {
 
@@ -26,8 +25,18 @@ public class App {
     } else {
       isChessLife = false;
     }
+    boolean stepByStep;
+    options[0] = new String("Step by step");
+    options[1] = new String("Auto");
+    if (JOptionPane.showOptionDialog(frame.getContentPane(), "Choose a mode",
+            "Simulif", 0, JOptionPane.QUESTION_MESSAGE, null, options,
+            null) == JOptionPane.YES_OPTION) {
+      stepByStep = true;
+    } else {
+      stepByStep = false;
+    }
 
-    myWorld = new MyWorld(8, 8, isChessLife);
+    myWorld = new MyWorld(8, 8, isChessLife, stepByStep);
 
     UserInterface userGameMatrixView = new UserInterface(
         new GameMatrixView(myWorld.getNbCols(), myWorld.getNbRows()));
