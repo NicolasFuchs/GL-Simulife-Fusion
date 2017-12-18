@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class MyWorld extends AWorld {
 
@@ -29,8 +30,10 @@ public class MyWorld extends AWorld {
   private AbstractCreator          liveCreator;
   private AbstractCreator          deadCreator;
   private String                   raison;
+  private boolean                  stepByStep;
 
-  public MyWorld(int nbCols, int nbRows, boolean isChessMode) {
+  public MyWorld(int nbCols, int nbRows, boolean isChessMode, boolean stepByStep) {
+    this.stepByStep = stepByStep;
     rd = new Random();
     list = new LinkedList<>();
     pieceFactory = new PieceFactory();
@@ -200,6 +203,10 @@ public class MyWorld extends AWorld {
         e.printStackTrace();
       }
       gameOver = isGameOver(isChessLife);
+      if(stepByStep) {
+        Scanner keyboard = new Scanner(System.in);
+        String readString = keyboard.nextLine();
+      }
     }
     JFrame frame = new JFrame();
     String[] options = new String[2];
