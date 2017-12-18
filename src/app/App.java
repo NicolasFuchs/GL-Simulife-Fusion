@@ -35,16 +35,26 @@ public class App {
     } else {
       stepByStep = false;
     }
+    //TODO ADD here a input for col and row
 
     myWorld = new MyWorld(8, 8, isChessLife, stepByStep);
 
-    UserInterface userGameMatrixView = new UserInterface(
-        new GameMatrixView(myWorld.getNbCols(), myWorld.getNbRows()));
-    myWorld.addObserver(userGameMatrixView);
-    
-    UserInterface userGraphiqueInterface = new UserInterface(
-          new MyGameGraphicView(myWorld.getNbCols(), myWorld.getNbRows(), isChessLife));
-    myWorld.addObserver(userGraphiqueInterface);
+    options[0] = new String("Matrix View");
+    options[1] = new String("Graphique View");
+    if (JOptionPane.showOptionDialog(frame.getContentPane(), "Choose a view",
+            "Simulif", 0, JOptionPane.QUESTION_MESSAGE, null, options,
+            null) == JOptionPane.YES_OPTION) {
+      UserInterface userGameMatrixView = new UserInterface(
+              new GameMatrixView(myWorld.getNbCols(), myWorld.getNbRows()));
+      myWorld.addObserver(userGameMatrixView);
+    } else {
+      UserInterface userGraphiqueInterface = new UserInterface(
+              new MyGameGraphicView(myWorld.getNbCols(), myWorld.getNbRows(), isChessLife));
+      myWorld.addObserver(userGraphiqueInterface);
+    }
+
+
+
 
     UserInterface userTextInterface = new UserInterface(new GameTextView());
     myWorld.addObserver(userTextInterface);
