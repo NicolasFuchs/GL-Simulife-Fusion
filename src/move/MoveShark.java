@@ -49,21 +49,24 @@ public class MoveShark extends Move {
 			}
 
 		} while (!isValidPoint(newX) || !isValidPoint(newY) || game[newY][newX] != null);
-		setPosition(new Point(newX, newY));
+
 		if (white != null) {
 			if (!white.hunger()) {
-				game[(int) c.getPosition().getY()][(int) c.getPosition().getX()] = null;
+				game[c.getPosition().y][c.getPosition().x] = null;
 				list.remove(c);
+			} else {
+				setPosition(new Point(newX, newY));
+
 			}
 		}
 
 		if (hammer != null) {
 			if (!hammer.hunger()) {
-				game[newY][newX]=null;
-				game[newX][newY]=null;
-				game[(int) c.getPosition().getX()][(int) c.getPosition().getY()] = null;
-				game[(int) c.getPosition().getY()][(int) c.getPosition().getX()] = null;
+				game[c.getPosition().y][c.getPosition().x] = null;
 				list.remove(c);
+			} else {
+				setPosition(new Point(newX, newY));
+
 			}
 		}
 	}
