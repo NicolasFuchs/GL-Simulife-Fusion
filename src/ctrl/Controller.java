@@ -1,6 +1,15 @@
 package ctrl;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import GUI.MyGameGraphicView;
+import GUI.MyGameMatrixView;
+import GUI.MyGameTextView;
 import ch.eiafr.gl.simulife.gui.UserInterface;
 import ch.eiafr.gl.simulife.gui.game.GameMatrixView;
 import ch.eiafr.gl.simulife.gui.game.GameTextView;
@@ -195,7 +204,7 @@ public class Controller {
 
     if (cbMatrix.isSelected()) {
       UserInterface userGameMatrixView = new UserInterface(
-          new GameMatrixView(myWorld.getNbCols(), myWorld.getNbRows()));
+          new MyGameMatrixView(myWorld.getNbCols(), myWorld.getNbRows()));
       myWorld.addObserver(userGameMatrixView);
     }
     if (cbGraphic.isSelected()) {
@@ -205,7 +214,7 @@ public class Controller {
       myWorld.addObserver(userGraphiqueInterface);
     }
     if (cbText.isSelected()) {
-      UserInterface userTextInterface = new UserInterface(new GameTextView());
+      UserInterface userTextInterface = new UserInterface(new MyGameTextView());
       myWorld.addObserver(userTextInterface);
     }
 

@@ -33,6 +33,7 @@ public class MyWorld extends AWorld {
   private String               raison;
   private boolean              stepByStep;
   private boolean              isSingleMove;
+  private boolean              isWaiting;
   private int                  speed;
 
   public MyWorld(int nbCols, int nbRows, boolean isChessMode,
@@ -273,4 +274,9 @@ public class MyWorld extends AWorld {
     }
     return true;
   }
+
+  public void setWaiting(boolean isWaiting) {
+    this.isWaiting = isWaiting;
+  }
+
 }

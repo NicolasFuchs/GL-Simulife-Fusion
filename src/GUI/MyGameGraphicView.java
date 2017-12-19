@@ -2,6 +2,8 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -12,13 +14,15 @@ import ch.eiafr.gl.simulife.gui.game.IGameView;
 import ch.eiafr.gl.simulife.model.AWorld;
 import ch.eiafr.gl.simulife.model.ICreature;
 
-public class MyGameGraphicView implements IGameView {
+public class MyGameGraphicView implements IGameView, KeyListener {
 
-  private JFrame     m_Frame = new JFrame("Simulife - GameGraphicView");
+  private JFrame     m_Frame     = new JFrame("Simulife - GameGraphicView");
   private JPanel     m_ButtonPanel;
   private JPanel[][] m_grid;
+  private boolean    keyReleased = false;
 
   public MyGameGraphicView(int nbCols, int nbRows, boolean isChessLife) {
+    this.m_Frame.addKeyListener(this);
     this.m_Frame.setDefaultCloseOperation(3);
     this.m_ButtonPanel = new JPanel(new GridLayout(nbRows, nbCols));
     this.m_grid = new JPanel[nbRows][nbCols];
@@ -69,6 +73,27 @@ public class MyGameGraphicView implements IGameView {
       }
     }
     this.m_Frame.repaint();
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
+    keyReleased = true;
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {
+  }
+
+  public boolean isKeyReleased() {
+    return keyReleased;
+  }
+
+  public void setKeyReleased(boolean keyReleased) {
+    this.keyReleased = keyReleased;
   }
 
 }
