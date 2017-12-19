@@ -32,9 +32,11 @@ public class MyWorld extends AWorld {
   private AbstractCreator      deadCreator;
   private String               raison;
   private boolean              stepByStep;
+  private boolean              isSingleMove;
+  private int                  speed;
 
   public MyWorld(int nbCols, int nbRows, boolean isChessMode,
-      boolean stepByStep, boolean isSingleMove, int nbrOfPenguins) {
+      boolean stepByStep, boolean isSingleMove, int nbrOfPenguins, int speed) {
     rd = new Random();
     list = new LinkedList<>();
     pieceFactory = new PieceFactory();
@@ -42,7 +44,9 @@ public class MyWorld extends AWorld {
     raison = "";
 
     this.stepByStep = stepByStep;
+    this.isSingleMove = isSingleMove;
     this.nbOfPenguins = nbrOfPenguins;
+    this.speed = speed;
     this.nbCols = nbCols;
     this.nbRows = nbRows;
     this.game = new Creature[nbRows][nbCols];
@@ -182,9 +186,10 @@ public class MyWorld extends AWorld {
           CreatureType.HAMMERSHARK,
           new Point(rd.nextInt(game[0].length), rd.nextInt(game.length)));
       list.add(hammer);
-      
+
       for (int i = 0; i < nbOfPenguins; i++) {
-        Penguin peng = (Penguin) liveCreator.createCreature(CreatureType.PENGUIN,
+        Penguin peng = (Penguin) liveCreator.createCreature(
+            CreatureType.PENGUIN,
             new Point(rd.nextInt(game[0].length), rd.nextInt(game.length)));
         list.add(peng);
       }
@@ -198,42 +203,39 @@ public class MyWorld extends AWorld {
 
   private void startSimulation(boolean isChessLife) {
     while (!gameOver) {
-      simulateMove();
-      updateView();
+      for (int i = 0; i < list.size(); i++) {
+        Creature c = list.get(i);
+        simulateMove(c);
+        updateView();
+        if (isChessLife) {
+          if (isSingleMove) {
+            try {
+              Thread.sleep(speed);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+          }
+        }
+        gameOver = isGameOver(isChessLife);
+        if (stepByStep) {
+          Scanner keyboard = new Scanner(System.in);
+          String readString = keyboard.nextLine();
+        }
+      }
       try {
-        Thread.sleep(1000);
+        Thread.sleep(speed);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-      gameOver = isGameOver(isChessLife);
-      if (stepByStep) {
-        Scanner keyboard = new Scanner(System.in);
-        String readString = keyboard.nextLine();
-      }
-    }
-    JFrame frame = new JFrame();
-    String[] options = new String[2];
-    options[0] = new String("Quit");
-    options[1] = new String("Restart");
-    if (JOptionPane.showOptionDialog(frame.getContentPane(),
-        "Game Over, " + raison + " restart a new simulation ?", "Simulif", 0,
-        JOptionPane.QUESTION_MESSAGE, null, options,
-        null) == JOptionPane.YES_OPTION) {
-      System.exit(0);
-    } else {
-      App.main(new String[0]);
     }
   }
 
-  private void simulateMove() {
-    for (int i = 0; i < list.size(); i++) {
-      Creature c = list.get(i);
-      Move m = c.setMove(game, c, list);
+  private void simulateMove(Creature c) {
+    Move m = c.setMove(game, c, list);
 
-      invoker.addMove(m);
-      invoker.doOne();
-      moveCreature(c, c.getPosition().x, c.getPosition().y);
-    }
+    invoker.addMove(m);
+    invoker.doOne();
+    moveCreature(c, c.getPosition().x, c.getPosition().y);
   }
 
   public boolean isGameOver(boolean chess) {

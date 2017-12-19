@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import world.MyWorld;
 
 public class Controller {
@@ -19,6 +20,8 @@ public class Controller {
   @FXML
   TextField       tfColumns;
   @FXML
+  TextField       tfSleep;
+  @FXML
   Label           lblGridSize;
   @FXML
   Label           lblNbrPenguins;
@@ -26,6 +29,8 @@ public class Controller {
   Label           lblMovesPerTurn;
   @FXML
   Label           lblCross;
+  @FXML
+  ImageView       ivInfo;
   @FXML
   ToggleGroup     gameSelection;
   @FXML
@@ -57,6 +62,10 @@ public class Controller {
 
   @FXML
   private void initialize() {
+
+    final int MIN_SPEED = 200;
+    final int MAX_SPEED = 5000;
+
     gameSelection.selectedToggleProperty()
         .addListener(new ChangeListener<Toggle>() {
           public void changed(ObservableValue<? extends Toggle> ov,
@@ -71,6 +80,7 @@ public class Controller {
             tfRows.setDisable(isChessLife);
             tfColumns.setDisable(isChessLife);
             tfNbrPenguins.setDisable(isChessLife);
+            ivInfo.setDisable(isChessLife);
           }
         });
 
@@ -101,6 +111,19 @@ public class Controller {
         }
       }
     });
+    tfSleep.textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> observable,
+          String oldValue, String newValue) {
+        if (!newValue.matches("\\d*")) {
+          tfSleep.setText(newValue.replaceAll("[^\\d]", ""));
+        }
+      }
+    });
+
+    Tooltip t = new Tooltip(
+        "Choose a number between 2 and 25% of the total grid size.\nExample: 8x8 grid-> [2..16]");
+    Tooltip.install(ivInfo, t);
   }
 
   public void startGame() {
@@ -108,6 +131,8 @@ public class Controller {
     final int MIN_ROWS = 8;
     final int MAX_COLS = 20;
     final int MIN_COLS = 8;
+    final int MAX_SPEED = 5000;
+    final int MIN_SPEED = 200;
 
     boolean isChessLife = gameSelection.getSelectedToggle().equals(rbChessLife);
     boolean isAutoMode = modeSelection.getSelectedToggle().equals(rbAuto);
@@ -135,13 +160,13 @@ public class Controller {
           nbrCols = cols;
       }
     }
-    
+
     final int MIN_PENGUINS = 2;
-    final int MAX_PENGUINS = nbrCols*nbrRows/4;
-    
+    final int MAX_PENGUINS = nbrCols * nbrRows / 4;
+
     String nbPenguinsText = tfNbrPenguins.getText();
-    
-    int nbrOfPenguins = 2;
+
+    int nbrOfPenguins = 5;
     if (!nbPenguinsText.isEmpty()) {
       int nbPenguins = Integer.valueOf(nbPenguinsText);
       if (nbPenguins < MIN_PENGUINS)
@@ -151,9 +176,22 @@ public class Controller {
       else
         nbrOfPenguins = nbPenguins;
     }
-    
+
+    String speedText = tfSleep.getText();
+    int speed = 1000;
+    if (!speedText.isEmpty()) {
+      int speedInt = Integer.valueOf(speedText);
+      if (speedInt < MIN_SPEED) {
+        speed = MIN_SPEED;
+      } else if (speedInt > MAX_SPEED) {
+        speed = MAX_SPEED;
+      } else {
+        speed = speedInt;
+      }
+    }
+
     myWorld = new MyWorld(nbrCols, nbrRows, isChessLife, !isAutoMode,
-        isSingleMove, nbrOfPenguins);
+        isSingleMove, nbrOfPenguins, speed);
 
     if (cbMatrix.isSelected()) {
       UserInterface userGameMatrixView = new UserInterface(
