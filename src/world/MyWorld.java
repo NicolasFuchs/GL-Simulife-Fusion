@@ -15,31 +15,34 @@ import java.util.Scanner;
 
 public class MyWorld extends AWorld {
 
-  private int                      nbCols      = 8;
-  private int                      nbRows      = 8;
-  private static final int         NumberOfIce = 3;
+  private int                  nbCols;
+  private int                  nbRows;
+  private int                  nbOfPenguins;
+  private static final int     NumberOfIce = 3;
 
-  private Creature[][]             game;
-  private boolean                  gameOver    = false;
+  private Creature[][]         game;
+  private boolean              gameOver    = false;
 
-  private Random                   rd;
-  private LinkedList<Creature>     list;
+  private Random               rd;
+  private LinkedList<Creature> list;
 
-  private PieceFactory             pieceFactory;
-  private MoveInvoker              invoker;
-  private AbstractCreator          liveCreator;
-  private AbstractCreator          deadCreator;
-  private String                   raison;
-  private boolean                  stepByStep;
+  private PieceFactory         pieceFactory;
+  private MoveInvoker          invoker;
+  private AbstractCreator      liveCreator;
+  private AbstractCreator      deadCreator;
+  private String               raison;
+  private boolean              stepByStep;
 
-  public MyWorld(int nbCols, int nbRows, boolean isChessMode, boolean stepByStep) {
-    this.stepByStep = stepByStep;
+  public MyWorld(int nbCols, int nbRows, boolean isChessMode,
+      boolean stepByStep, boolean isSingleMove, int nbrOfPenguins) {
     rd = new Random();
     list = new LinkedList<>();
     pieceFactory = new PieceFactory();
     invoker = new MoveInvoker();
     raison = "";
 
+    this.stepByStep = stepByStep;
+    this.nbOfPenguins = nbrOfPenguins;
     this.nbCols = nbCols;
     this.nbRows = nbRows;
     this.game = new Creature[nbRows][nbCols];
@@ -168,23 +171,23 @@ public class MyWorld extends AWorld {
 
       for (int i = 0; i < NumberOfIce; i++) {
         Ice ice = (Ice) deadCreator.createCreature(CreatureType.ICE,
-            new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+            new Point(rd.nextInt(game[0].length), rd.nextInt(game.length)));
         list.add(ice);
       }
       WhiteShark white = (WhiteShark) liveCreator.createCreature(
           CreatureType.WHITESHARK,
-          new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+          new Point(rd.nextInt(game[0].length), rd.nextInt(game.length)));
       list.add(white);
       HammerheadShark hammer = (HammerheadShark) liveCreator.createCreature(
           CreatureType.HAMMERSHARK,
-          new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
+          new Point(rd.nextInt(game[0].length), rd.nextInt(game.length)));
       list.add(hammer);
-      Penguin peng = (Penguin) liveCreator.createCreature(CreatureType.PENGUIN,
-          new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
-      Penguin peng1 = (Penguin) liveCreator.createCreature(CreatureType.PENGUIN,
-              new Point(rd.nextInt(game.length), rd.nextInt(game.length)));
-      list.add(peng);
-      list.add(peng1);
+      
+      for (int i = 0; i < nbOfPenguins; i++) {
+        Penguin peng = (Penguin) liveCreator.createCreature(CreatureType.PENGUIN,
+            new Point(rd.nextInt(game[0].length), rd.nextInt(game.length)));
+        list.add(peng);
+      }
     }
     for (Creature c : list) {
       moveCreature(c, c.getPosition().x, c.getPosition().y);
@@ -203,7 +206,7 @@ public class MyWorld extends AWorld {
         e.printStackTrace();
       }
       gameOver = isGameOver(isChessLife);
-      if(stepByStep) {
+      if (stepByStep) {
         Scanner keyboard = new Scanner(System.in);
         String readString = keyboard.nextLine();
       }
@@ -212,9 +215,10 @@ public class MyWorld extends AWorld {
     String[] options = new String[2];
     options[0] = new String("Quit");
     options[1] = new String("Restart");
-    if (JOptionPane.showOptionDialog(frame.getContentPane(), "Game Over, " + raison + " restart a new simulation ?",
-            "Simulif", 0, JOptionPane.QUESTION_MESSAGE, null, options,
-            null) == JOptionPane.YES_OPTION) {
+    if (JOptionPane.showOptionDialog(frame.getContentPane(),
+        "Game Over, " + raison + " restart a new simulation ?", "Simulif", 0,
+        JOptionPane.QUESTION_MESSAGE, null, options,
+        null) == JOptionPane.YES_OPTION) {
       System.exit(0);
     } else {
       App.main(new String[0]);
@@ -226,38 +230,44 @@ public class MyWorld extends AWorld {
       Creature c = list.get(i);
       Move m = c.setMove(game, c, list);
 
-     invoker.addMove(m);
+      invoker.addMove(m);
       invoker.doOne();
       moveCreature(c, c.getPosition().x, c.getPosition().y);
     }
   }
 
   public boolean isGameOver(boolean chess) {
-    if(chess){
+    if (chess) {
       int king = 0;
-      if(list.isEmpty()) return true;
-      for(Creature c:list){
-        if (c instanceof King) king++;
+      if (list.isEmpty())
+        return true;
+      for (Creature c : list) {
+        if (c instanceof King)
+          king++;
       }
-      if(king > 1){
+      if (king > 1) {
         raison = "a king is dead";
         return false;
       }
     } else {
-      if(list.isEmpty()) return true;
+      if (list.isEmpty())
+        return true;
       boolean requinOk = false;
       boolean pinguinsOk = false;
-      for(Creature c:list){
+      for (Creature c : list) {
         if (c instanceof HammerheadShark || c instanceof WhiteShark) {
           requinOk = true;
         }
-        if( c instanceof  Penguin) {
+        if (c instanceof Penguin) {
           pinguinsOk = true;
         }
       }
-      if(requinOk && pinguinsOk) return false;
-      if(!requinOk)raison = "No more Sharks";
-      if(!pinguinsOk)raison = "No more Penguin";
+      if (requinOk && pinguinsOk)
+        return false;
+      if (!requinOk)
+        raison = "No more Sharks";
+      if (!pinguinsOk)
+        raison = "No more Penguin";
     }
     return true;
   }

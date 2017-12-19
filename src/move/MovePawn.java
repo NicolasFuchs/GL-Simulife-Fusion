@@ -67,7 +67,13 @@ public class MovePawn extends Move {
       return false;
     if (x == 0)
       return false;
-    if (game[y - 1][x - 1] == null)
+    
+    Creature target = game[y - 1][x - 1];
+    if (target == null)
+      return false;
+    if (target instanceof Pawn)
+      return false;
+    if (target instanceof Rook)
       return false;
     return true;
   }

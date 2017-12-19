@@ -71,7 +71,7 @@ public class MoveIce extends Move {
                 default:
                     break;
                 }
-                if (tmpCol < 0 || tmpCol == game.length || tmpRow == game.length || tmpRow < 0) {
+                if (tmpCol < 0 || tmpCol == game[0].length || tmpRow == game.length || tmpRow < 0) {
                     tmpCol = col;
                     tmpRow = row;
                     if (pos < 4)
@@ -87,11 +87,11 @@ public class MoveIce extends Move {
             }
 
             // add ice to list
-            Ice ice = (Ice) deadCreator.createCreature(CreatureType.ICE, new Point(tmpRow, tmpCol));
+            Ice ice = (Ice) deadCreator.createCreature(CreatureType.ICE, new Point(tmpCol, tmpRow));
             list.add(ice);
 
         } else {
-            setPosition(new Point(row, col));
+            setPosition(new Point(col, row));
 
         }
     }
@@ -99,7 +99,7 @@ public class MoveIce extends Move {
     public void removeIce(ICreature[][] game) {
         int pourc = rd.nextInt(10);
         if (pourc < 6) {
-            game[c.getPosition().x][c.getPosition().y] = null;
+            game[c.getPosition().y][c.getPosition().x] = null;
 
             // remove ice to list
             list.remove(c);
