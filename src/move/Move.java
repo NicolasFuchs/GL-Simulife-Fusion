@@ -6,9 +6,9 @@ import creature.Creature;
 
 public class Move implements IMove {
 
-  Creature     creature;
-  Creature[][] game;
-  int          dx, dy;
+  private Creature     creature;
+  private Creature[][] game;
+  private int          dx, dy;
 
   public Move(Creature[][] game, Creature c) {
     creature = c;
