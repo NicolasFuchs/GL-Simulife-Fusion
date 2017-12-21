@@ -165,6 +165,58 @@ public class MyWorld extends AWorld {
       list.add(qB);
       list.add(pB1);
       list.add(pB2);
+      /*
+       * kW = (King) pieceFactory.createPiece(CreatureType.KING, false, new
+       * Point(3, 7)); King kB = (King)
+       * pieceFactory.createPiece(CreatureType.KING, true, new Point(3, 0));
+       * Bishop bW1 = (Bishop) pieceFactory.createPiece(CreatureType.BISHOP,
+       * false, new Point(2, 7)); Bishop bW2 = (Bishop)
+       * pieceFactory.createPiece(CreatureType.BISHOP, false, new Point(5, 7));
+       * Bishop bB1 = (Bishop) pieceFactory.createPiece(CreatureType.BISHOP,
+       * true, new Point(2, 0)); Bishop bB2 = (Bishop)
+       * pieceFactory.createPiece(CreatureType.BISHOP, true, new Point(5, 0));
+       * Knight kW1 = (Knight) pieceFactory.createPiece(CreatureType.KNIGHT,
+       * false, new Point(1, 7)); Knight kW2 = (Knight)
+       * pieceFactory.createPiece(CreatureType.KNIGHT, false, new Point(6, 7));
+       * Knight kB1 = (Knight) pieceFactory.createPiece(CreatureType.KNIGHT,
+       * true, new Point(1, 0)); Knight kB2 = (Knight)
+       * pieceFactory.createPiece(CreatureType.KNIGHT, true, new Point(6, 0));
+       * Queen qW = (Queen) pieceFactory.createPiece(CreatureType.QUEEN, false,
+       * new Point(4, 7)); Queen qB = (Queen)
+       * pieceFactory.createPiece(CreatureType.QUEEN, true, new Point(4, 0));
+       * Pawn pB1 = (Pawn) pieceFactory.createPiece(CreatureType.PAWN, false,
+       * new Point(0, 6)); Pawn pB2 = (Pawn)
+       * pieceFactory.createPiece(CreatureType.PAWN, false, new Point(1, 6));
+       * Pawn pB3 = (Pawn) pieceFactory.createPiece(CreatureType.PAWN, false,
+       * new Point(2, 6)); Pawn pB4 = (Pawn)
+       * pieceFactory.createPiece(CreatureType.PAWN, false, new Point(3, 6));
+       * Pawn pB5 = (Pawn) pieceFactory.createPiece(CreatureType.PAWN, false,
+       * new Point(4, 6)); Pawn pB6 = (Pawn)
+       * pieceFactory.createPiece(CreatureType.PAWN, false, new Point(5, 6));
+       * Pawn pB7 = (Pawn) pieceFactory.createPiece(CreatureType.PAWN, false,
+       * new Point(6, 6)); Pawn pB8 = (Pawn)
+       * pieceFactory.createPiece(CreatureType.PAWN, false, new Point(7, 6));
+       * Pawn pW1 = (Pawn) pieceFactory.createPiece(CreatureType.PAWN, true, new
+       * Point(0, 1)); Pawn pW2 = (Pawn)
+       * pieceFactory.createPiece(CreatureType.PAWN, true, new Point(1, 1));
+       * Pawn pW3 = (Pawn) pieceFactory.createPiece(CreatureType.PAWN, true, new
+       * Point(2, 1)); Pawn pW4 = (Pawn)
+       * pieceFactory.createPiece(CreatureType.PAWN, true, new Point(3, 1));
+       * Pawn pW5 = (Pawn) pieceFactory.createPiece(CreatureType.PAWN, true, new
+       * Point(4, 1)); Pawn pW6 = (Pawn)
+       * pieceFactory.createPiece(CreatureType.PAWN, true, new Point(5, 1));
+       * Pawn pW7 = (Pawn) pieceFactory.createPiece(CreatureType.PAWN, true, new
+       * Point(6, 1)); Pawn pW8 = (Pawn)
+       * pieceFactory.createPiece(CreatureType.PAWN, true, new Point(7, 1));
+       * 
+       * list.add(kW); list.add(kB); list.add(bW1); list.add(bW2);
+       * list.add(bB1); list.add(bB2); list.add(kW1); list.add(kW2);
+       * list.add(kB1); list.add(kB2); list.add(qW); list.add(qB);
+       * list.add(pB1); list.add(pB2); list.add(pB3); list.add(pB4);
+       * list.add(pB5); list.add(pB6); list.add(pB7); list.add(pB8);
+       * list.add(pW1); list.add(pW2); list.add(pW3); list.add(pW4);
+       * list.add(pW5); list.add(pW6); list.add(pW7); list.add(pW8);
+       */
 
     } else {
       liveCreator = new LiveCreator();

@@ -13,7 +13,7 @@ public class MovePawn extends Move {
   Random rd;
 
   public MovePawn(Creature[][] game, Creature c, LinkedList<Creature> list) {
-    super(game, c);
+    super(game, c,list);
     int x = c.getPosition().x;
     int y = c.getPosition().y;
     if (y == 0) {

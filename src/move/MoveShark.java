@@ -14,7 +14,7 @@ public class MoveShark extends Move {
   Random rd;
 
   public MoveShark(Creature[][] game, Creature c, LinkedList<Creature> list) {
-    super(game, c);
+    super(game, c, list);
 
     HammerheadShark hammer = null;
     WhiteShark white = null;

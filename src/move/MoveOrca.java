@@ -1,6 +1,7 @@
 package move;
 
 import java.awt.Point;
+import java.util.LinkedList;
 import java.util.Random;
 
 import creature.Creature;
@@ -9,8 +10,8 @@ public class MoveOrca extends Move {
 
   Random rd;
 
-  public MoveOrca(Creature[][] game, Creature c) {
-    super(game, c);
+  public MoveOrca(Creature[][] game, Creature c, LinkedList<Creature> list) {
+    super(game, c,list);
     rd = new Random();
     
     int newX, newY;

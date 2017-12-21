@@ -38,7 +38,7 @@ public class Queen extends Creature {
 	@Override
 	public Move setMove(Creature[][] game, Creature c,
 	      LinkedList<Creature> list) {
-		return new MoveQueen(game, c);
+		return new MoveQueen(game, c, list);
 		
 	}
 }

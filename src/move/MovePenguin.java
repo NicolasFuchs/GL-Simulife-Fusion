@@ -1,6 +1,7 @@
 package move;
 
 import java.awt.Point;
+import java.util.LinkedList;
 import java.util.Random;
 
 import creature.Creature;
@@ -9,9 +10,9 @@ public class MovePenguin extends Move {
     public static boolean isPlayed = true;
     Random rd;
 
-    public MovePenguin(Creature[][] game, Creature c) {
+    public MovePenguin(Creature[][] game, Creature c, LinkedList<Creature> list) {
 
-        super(game, c);
+        super(game, c,list);
         if (isPlayed) {
             rd = new Random();
 

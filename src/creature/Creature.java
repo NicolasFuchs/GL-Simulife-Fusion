@@ -55,7 +55,7 @@ public class Creature implements ICreature {
 	}
 
 	public Move setMove(Creature[][] game, Creature c, LinkedList<Creature> list) {
-		return new Move(game, c);
+		return new Move(game, c,list);
 		
 	}
 }

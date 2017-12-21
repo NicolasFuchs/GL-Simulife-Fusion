@@ -134,7 +134,7 @@ public class Penguin extends Creature {
 	@Override
 	public Move setMove(Creature[][] game, Creature c,
 	      LinkedList<Creature> list) {
-		return new MovePenguin(game, c);
+		return new MovePenguin(game, c, list);
 		
 	}
 

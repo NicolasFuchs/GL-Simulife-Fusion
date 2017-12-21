@@ -20,7 +20,7 @@ public class MoveIce extends Move {
     private LinkedList<Creature> list;
 
     public MoveIce(Creature[][] game, Creature c, LinkedList<Creature> list) {
-        super(game, c);
+        super(game, c,list);
         this.c = c;
         this.list = list;
         deadCreator = new DeadCreator();

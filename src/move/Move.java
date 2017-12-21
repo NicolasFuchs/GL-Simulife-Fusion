@@ -1,18 +1,25 @@
 package move;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Random;
 
 import creature.Creature;
 
 public class Move implements IMove {
 
-  private Creature     creature;
-  private Creature[][] game;
-  private int          dx, dy;
+  private Random               rd;
+  private Creature             creature;
+  private Creature[][]         game;
+  private int                  dx, dy;
+  private LinkedList<Creature> list;
 
-  public Move(Creature[][] game, Creature c) {
-    creature = c;
+  public Move(Creature[][] game, Creature c, LinkedList<Creature> list) {
+    rd = new Random();
+    this.creature = c;
     this.game = game;
+    this.list = list;
   }
 
   @Override
@@ -27,7 +34,7 @@ public class Move implements IMove {
 
   @Override
   public boolean isValidPoint(int pointCoord) {
-    return pointCoord >= 0 && pointCoord <= 7;
+    return pointCoord >= 0 && pointCoord < game.length;
   }
 
   public void setPosition(Point position) {
