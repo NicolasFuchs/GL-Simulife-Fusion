@@ -155,14 +155,14 @@ public class MyWorld extends AWorld {
 
       list.add(kW);
       list.add(kB);
+      list.add(qW);
+      list.add(qB);
       list.add(bW1);
       list.add(bW2);
       list.add(bB1);
       list.add(bB2);
       list.add(kW1);
       list.add(kW2);
-      list.add(qW);
-      list.add(qB);
       list.add(pB1);
       list.add(pB2);
       /*
