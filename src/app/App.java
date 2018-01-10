@@ -12,7 +12,7 @@ public class App extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     Pane root = (Pane) FXMLLoader
-        .load(getClass().getResource("../GUI/configView.fxml"));
+        .load(getClass().getResource("/GUI/configView.fxml"));
     Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();

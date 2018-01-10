@@ -20,7 +20,7 @@ public class MoveIce extends Move {
     private LinkedList<Creature> list;
 
     public MoveIce(Creature[][] game, Creature c, LinkedList<Creature> list) {
-        super(game, c,list);
+        super(game, c, list);
         this.c = c;
         this.list = list;
         deadCreator = new DeadCreator();
@@ -80,7 +80,7 @@ public class MoveIce extends Move {
                         pos = 1;
                 }
                 Creature p;
-    
+
             } while (game[tmpRow][tmpCol] != null && !allpositioncheck);
             if (allpositioncheck) {
                 allpositioncheck = false;
@@ -89,9 +89,6 @@ public class MoveIce extends Move {
             // add ice to list
             Ice ice = (Ice) deadCreator.createCreature(CreatureType.ICE, new Point(tmpCol, tmpRow));
             list.add(ice);
-
-        } else {
-            setPosition(new Point(col, row));
 
         }
     }
@@ -104,8 +101,6 @@ public class MoveIce extends Move {
             // remove ice to list
             list.remove(c);
 
-        } else {
-            setPosition(new Point(c.getPosition().x, c.getPosition().y));
         }
     }
 }

@@ -9,11 +9,11 @@ import creature.Creature;
 public class MovePenguin extends Move {
     public static boolean isPlayed = true;
     Random rd;
-
     public MovePenguin(Creature[][] game, Creature c, LinkedList<Creature> list) {
 
         super(game, c,list);
         if (isPlayed) {
+
             rd = new Random();
 
             int dx, dy;
@@ -34,7 +34,11 @@ public class MovePenguin extends Move {
                 }
 
             } while (!isValidPoint(newX) || !isValidPoint(newY) || game[newY][newX] != null);
+        if(c.getPosition().y!=newY||c.getPosition().x!=newX)
             setPosition(new Point(newX, newY));
+            isPlayed=false;
+        }else {
+            isPlayed=true;
         }
     }
 }
