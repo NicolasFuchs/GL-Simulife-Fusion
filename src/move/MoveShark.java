@@ -44,7 +44,12 @@ public class MoveShark extends Move {
                 }
                 if (foundPenguin) break;
             }
-            if (foundPenguin) break;
+            if (foundPenguin) {
+                list.remove(game[newY][newX]);
+                if (white != null) white.eat();
+                else if (hammer != null) hammer.eat();
+                break;
+            }
             if (isValidPoint(c.getPosition().x-2)) {
                 foundPenguin = true;
                 newX = c.getPosition().x-2;
@@ -62,12 +67,7 @@ public class MoveShark extends Move {
                 newX = c.getPosition().x;
                 newY = c.getPosition().y+2;
             }
-            if (foundPenguin) {
-                list.remove(game[newY][newX]);
-                if (white != null) white.eat();
-                else if (hammer != null) hammer.eat();
-                break;
-            }
+      
 
             
             dx = rd.nextInt(3) - 1;
