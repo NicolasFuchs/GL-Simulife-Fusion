@@ -96,7 +96,7 @@ public class MoveShark extends Move {
             if (!white.hunger()) {
                 game[c.getPosition().y][c.getPosition().x] = null;
                 list.remove(c);
-            } else if(c.getPosition().y!=newY||c.getPosition().x!=newX){
+            } else {
                 setPosition(new Point(newX, newY));
 
             }
@@ -106,7 +106,7 @@ public class MoveShark extends Move {
             if (!hammer.hunger()) {
                 game[c.getPosition().y][c.getPosition().x] = null;
                 list.remove(c);
-            } else if(c.getPosition().y!=newY||c.getPosition().x!=newX){
+            } else {
                 setPosition(new Point(newX, newY));
 
             }

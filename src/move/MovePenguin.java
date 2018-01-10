@@ -34,7 +34,6 @@ public class MovePenguin extends Move {
                 }
 
             } while (!isValidPoint(newX) || !isValidPoint(newY) || game[newY][newX] != null);
-        if(c.getPosition().y!=newY||c.getPosition().x!=newX)
             setPosition(new Point(newX, newY));
             isPlayed=false;
         }else {
